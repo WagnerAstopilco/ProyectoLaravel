@@ -11,11 +11,11 @@ return new class extends Migration
     {
         Schema::create('payments', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade'); 
-            $table->foreignId('course_id')->constrained('courses')->onDelete('cascade'); 
+
             $table->string('transaction_code'); 
+            $table->string('comprobante');  
             $table->decimal('amount', 10, 2); 
-            $table->string('payment_method'); 
+            $table->enum('tipo',['transferencia','yape','plin','tarjeta']); 
             $table->enum('status', ['pending', 'completed', 'failed']); 
             $table->timestamp('payment_date');
             $table->timestamps();

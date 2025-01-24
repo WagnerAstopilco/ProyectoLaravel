@@ -10,9 +10,21 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('names');
+            $table->string('last_names');            
             $table->string('email')->unique();
             $table->string('password');
+            $table->string('phone_number')->nullable();
+            $table->date('birthday_date')->nullable();
+            $table->string('country')->nullable();
+            $table->string('city')->nullable();
+            $table->string('address')->nullable();
+            $table->string('document_type')->nullable();
+            $table->string('document_number')->nullable();
+            $table->char('gender',1)->nullable();
+            $table->string('photo')->nullable();
+            $table->string('speciality')->nullable();
+            $table->string('biography')->nullable();
             $table->enum('role', ['admin', 'comercial', 'supervisor', 'alumno', 'capacitador']);
             $table->enum('status', ['active', 'inactive']);
             $table->timestamps();

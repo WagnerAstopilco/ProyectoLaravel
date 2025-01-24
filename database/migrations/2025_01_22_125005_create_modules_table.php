@@ -9,18 +9,18 @@ return new class extends Migration
 
     public function up(): void
     {
-        Schema::create('course_modules', function (Blueprint $table) {
+        Schema::create('modules', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('store_id');
             $table->text('description')->nullable();
             $table->integer('order');
-            $table->timestamps();
-            $table->foreignId('course_id')->constrained('courses')->onDelete('cascade');
+            $table->timestamps();            
         });
     }
 
     public function down(): void
     {
-        Schema::dropIfExists('course_modules');
+        Schema::dropIfExists('modules');
     }
 };
