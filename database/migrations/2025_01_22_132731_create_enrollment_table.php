@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('enrollment', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->contrained('users')->onDelete('cascade');
-            $table->foreignId('course_id')->contrained('courses')->onDelete('cascade');
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('course_id')->constrained('courses')->onDelete('cascade');
             $table->date('enrollment_date');
             $table->date('end_enrollment_date');
             $table->enum('state',['activo','suspendido']);
