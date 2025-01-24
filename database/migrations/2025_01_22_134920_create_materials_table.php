@@ -15,9 +15,11 @@ return new class extends Migration
             $table->id();
             $table->enum('grado',['lesson','course']);
             $table->enum('type',['file','link','video','pdf']);
-            $table->string('url');
+            $table->text('url');
+            $table->text('content');
             $table->string('title');
             $table->integer('order')->nullable();
+            $table->foreignId('lesson_id')->constrained('course_lessons')->onDelete('cascade')->nullable();
             $table->timestamps();
         });
     }

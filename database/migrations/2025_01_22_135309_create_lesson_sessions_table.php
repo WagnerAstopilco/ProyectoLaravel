@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('lesson_id')->constrained('course_lessons')->onDelete('cascade');
             $table->timestamp('session_date');
-            $table->string('zoom_link');
-            $table->string('meeting_link');
+            $table->enum('type',['zoom','meet']);
+            $table->string('link');
             $table->string('password')->nullable();
             $table->timestamps();
         });

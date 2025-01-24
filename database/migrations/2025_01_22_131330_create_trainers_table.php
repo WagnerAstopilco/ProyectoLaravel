@@ -12,9 +12,7 @@ return new class extends Migration
         Schema::create('trainers', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-            $table->string('name');
             $table->text('certifications')->nullable();
-            $table->string('celular');
             $table->timestamps();
         });
     }

@@ -24,7 +24,7 @@ return new class extends Migration
             $table->char('gender',1)->nullable();
             $table->string('photo')->nullable();
             $table->string('speciality')->nullable();
-            $table->string('biography')->nullable();
+            $table->text('biography')->nullable();
             $table->enum('role', ['admin', 'comercial', 'supervisor', 'alumno', 'capacitador']);
             $table->enum('status', ['active', 'inactive']);
             $table->timestamps();

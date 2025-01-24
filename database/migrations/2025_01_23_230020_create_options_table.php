@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('question_id')->constrained('questions')->onDelete('cascade');
             $table->string('option');
-            $table->enum('status',['correcta','incorrecta']);
+            $table->tinyInteger('is_correct');
             $table->timestamps();
         });
     }
