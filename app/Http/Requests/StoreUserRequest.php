@@ -22,7 +22,23 @@ class StoreUserRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'names' => 'required|string|max:255',
+            'last_names' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email,',
+            'password' => 'required|min:8',
+            'phone_number' => 'nullable|string|max:9',
+            'birthday_date' => 'nullable|date|before:today',
+            'country' => 'nullable|string|max:255',
+            'city' => 'nullable|string|max:255',
+            'address' => 'nullable|string|max:255',
+            'document_type' => 'nullable|string|max:20',
+            'document_number' => 'nullable|string|max:50',
+            'gender' => 'nullable|in:M,F',
+            'photo' => 'nullable|string|max:50', 
+            'speciality' => 'nullable|string|max:255',
+            'biography' => 'nullable|string',
+            'role' => 'required|in:admin,comercial,supervisor,alumno,capacitador',
+            'status' => 'required|in:active,inactive',
         ];
     }
 }
