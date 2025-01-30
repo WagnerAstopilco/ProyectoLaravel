@@ -14,8 +14,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categorries=Category::paginate(20);
-        return CategoryResource::collection($categorries);
+        $categories=Category::with('courses')->paginate(20);
+        return CategoryResource::collection($categories);
     }
 
     /**
@@ -23,7 +23,8 @@ class CategoryController extends Controller
      */
     public function store(StoreCategoryRequest $request)
     {
-        
+        $category = Category::create($request->validated());
+        return new CategoryResource($category);
     }
 
     /**
@@ -31,7 +32,8 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        
+        $category->load(['courses']);
+        return new CategoryResource($category);
     }
 
     /**
@@ -39,7 +41,8 @@ class CategoryController extends Controller
      */
     public function update(UpdateCategoryRequest $request, Category $category)
     {
-        //
+        $category->update($request->validated());
+        return new CategoryResource($category);
     }
 
     /**
@@ -47,6 +50,7 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+        $category->delete();
+        return response()->json(['message' => 'Categoria eliminada correctamente'], 200);
     }
 }

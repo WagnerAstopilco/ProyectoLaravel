@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Course;
 use App\Http\Requests\StoreCourseRequest;
 use App\Http\Requests\UpdateCourseRequest;
+use App\Http\Resources\CourseResource;
 
 class CourseController extends Controller
 {
@@ -13,7 +14,7 @@ class CourseController extends Controller
      */
     public function index()
     {
-        //
+        return CourseResource::collection(Course::with(['category', 'trainers', 'modules', 'evaluations', 'certificates', 'enrollments', 'materials'])->get());
     }
 
     /**
@@ -21,7 +22,8 @@ class CourseController extends Controller
      */
     public function store(StoreCourseRequest $request)
     {
-        //
+        $course = Course::create($request->validated());
+        return new CourseResource($course);
     }
 
     /**
@@ -29,7 +31,8 @@ class CourseController extends Controller
      */
     public function show(Course $course)
     {
-        //
+        $course->load(['category', 'trainers', 'modules', 'evaluations', 'certificates', 'enrollments', 'materials']);
+        return new CourseResource($course);
     }
 
     /**
@@ -37,7 +40,8 @@ class CourseController extends Controller
      */
     public function update(UpdateCourseRequest $request, Course $course)
     {
-        //
+        $course->update($request->validated());
+        return new CourseResource($course);
     }
 
     /**
@@ -45,6 +49,7 @@ class CourseController extends Controller
      */
     public function destroy(Course $course)
     {
-        //
+        $course->delete();
+        return response()->json(['message' => 'Curso eliminado correctamente'], 200);
     }
 }

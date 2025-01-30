@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\UserEvaluation;
 use App\Http\Requests\StoreUserEvaluationRequest;
 use App\Http\Requests\UpdateUserEvaluationRequest;
+use App\Http\Resources\UserEvaluationResource;
 
 class UserEvaluationController extends Controller
 {
@@ -13,7 +14,8 @@ class UserEvaluationController extends Controller
      */
     public function index()
     {
-        //
+        $userEvaluations = UserEvaluation::with('user', 'evaluation', 'userAnswers')->get();
+        return UserEvaluationResource::collection($userEvaluations);
     }
 
     /**
@@ -21,7 +23,8 @@ class UserEvaluationController extends Controller
      */
     public function store(StoreUserEvaluationRequest $request)
     {
-        //
+        $userEvaluation = UserEvaluation::create($request->validated());
+        return new UserEvaluationResource($userEvaluation);
     }
 
     /**
@@ -29,7 +32,8 @@ class UserEvaluationController extends Controller
      */
     public function show(UserEvaluation $userEvaluation)
     {
-        //
+        $userEvaluation->load('user', 'evaluation', 'userAnswers');
+        return new UserEvaluationResource($userEvaluation);
     }
 
     /**
@@ -37,7 +41,8 @@ class UserEvaluationController extends Controller
      */
     public function update(UpdateUserEvaluationRequest $request, UserEvaluation $userEvaluation)
     {
-        //
+        $userEvaluation->update($request->validated());
+        return new UserEvaluationResource($userEvaluation);
     }
 
     /**
@@ -45,6 +50,7 @@ class UserEvaluationController extends Controller
      */
     public function destroy(UserEvaluation $userEvaluation)
     {
-        //
+        $userEvaluation->delete();
+        return response()->json(['message' => 'Evaluación de usuario eliminada correctamente', 200]);
     }
 }

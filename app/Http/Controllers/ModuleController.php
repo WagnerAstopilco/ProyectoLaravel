@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Module;
 use App\Http\Requests\StoreModuleRequest;
 use App\Http\Requests\UpdateModuleRequest;
+use App\Http\Resources\ModuleResource;
 
 class ModuleController extends Controller
 {
@@ -13,7 +14,8 @@ class ModuleController extends Controller
      */
     public function index()
     {
-        //
+        $modules=Module::with('lessons','courses')->paginate(20);
+        return ModuleResource::collection($modules);
     }
 
     /**
@@ -21,7 +23,8 @@ class ModuleController extends Controller
      */
     public function store(StoreModuleRequest $request)
     {
-        //
+        $module=Module::create($request->validated());
+        return new ModuleResource($module);
     }
 
     /**
@@ -29,7 +32,8 @@ class ModuleController extends Controller
      */
     public function show(Module $module)
     {
-        //
+        $module->load('lessons','courses');
+        return new ModuleResource($module);
     }
 
     /**
@@ -37,7 +41,8 @@ class ModuleController extends Controller
      */
     public function update(UpdateModuleRequest $request, Module $module)
     {
-        //
+        $module->update($request->validated());
+        return new ModuleResource($module);
     }
 
     /**
@@ -45,6 +50,7 @@ class ModuleController extends Controller
      */
     public function destroy(Module $module)
     {
-        //
+        $module->delete();
+        return response()->json(['message'=>'Módulo eliminado correctamente',200]);
     }
 }

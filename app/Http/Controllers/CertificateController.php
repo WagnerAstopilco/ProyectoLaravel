@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Certificate;
 use App\Http\Requests\StoreCertificateRequest;
 use App\Http\Requests\UpdateCertificateRequest;
+use App\Http\Resources\CertificateResource;
 
 class CertificateController extends Controller
 {
@@ -13,7 +14,8 @@ class CertificateController extends Controller
      */
     public function index()
     {
-        //
+        $certificates=Certificate::with('user','course')->get();
+        return CertificateResource::collection($certificates);
     }
 
     /**
@@ -21,7 +23,8 @@ class CertificateController extends Controller
      */
     public function store(StoreCertificateRequest $request)
     {
-        //
+        $certificate = Certificate::create($request->validated());
+        return new CertificateResource($certificate);
     }
 
     /**
@@ -29,7 +32,8 @@ class CertificateController extends Controller
      */
     public function show(Certificate $certificate)
     {
-        //
+        $certificate->load(['user','course']);
+        return new CertificateResource($certificate);
     }
 
     /**
@@ -37,7 +41,8 @@ class CertificateController extends Controller
      */
     public function update(UpdateCertificateRequest $request, Certificate $certificate)
     {
-        //
+        $certificate->update($request->validated());
+        return new CertificateResource($certificate);
     }
 
     /**
@@ -45,6 +50,7 @@ class CertificateController extends Controller
      */
     public function destroy(Certificate $certificate)
     {
-        //
+        $certificate->delete();
+        return response()->json(['message' => 'Certificado eliminado correctamente'], 200);
     }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\LessonSession;
 use App\Http\Requests\StoreLessonSessionRequest;
 use App\Http\Requests\UpdateLessonSessionRequest;
+use App\Http\Resources\LessonSessionResource;
 
 class LessonSessionController extends Controller
 {
@@ -13,7 +14,8 @@ class LessonSessionController extends Controller
      */
     public function index()
     {
-        //
+        $lessonSessions=LessonSession::with('lessons')->paginate(20);
+        return LessonSessionResource::collection($lessonSessions);
     }
 
     /**
@@ -21,7 +23,8 @@ class LessonSessionController extends Controller
      */
     public function store(StoreLessonSessionRequest $request)
     {
-        //
+        $lessonSession=LessonSession::create($request->validated());
+        return new LessonSessionResource($lessonSession);
     }
 
     /**
@@ -29,7 +32,8 @@ class LessonSessionController extends Controller
      */
     public function show(LessonSession $lessonSession)
     {
-        //
+        $lessonSession->load('lessons');
+        return new LessonSessionResource($lessonSession);
     }
 
     /**
@@ -37,7 +41,8 @@ class LessonSessionController extends Controller
      */
     public function update(UpdateLessonSessionRequest $request, LessonSession $lessonSession)
     {
-        //
+        $lessonSession->update($request->validated());
+        return new LessonSessionResource($lessonSession);
     }
 
     /**
@@ -45,6 +50,7 @@ class LessonSessionController extends Controller
      */
     public function destroy(LessonSession $lessonSession)
     {
-        //
+        $lessonSession->delete();
+        return response()->json(['message'=>'Sesión de lección eliminada correctamente',200]);
     }
 }

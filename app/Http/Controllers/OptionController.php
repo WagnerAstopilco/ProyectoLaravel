@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Option;
 use App\Http\Requests\StoreOptionRequest;
 use App\Http\Requests\UpdateOptionRequest;
+use App\Http\Resources\OptionResource;
 
 class OptionController extends Controller
 {
@@ -13,7 +14,8 @@ class OptionController extends Controller
      */
     public function index()
     {
-        //
+        $options = Option::with('question')->get();
+        return OptionResource::collection($options);
     }
 
     /**
@@ -21,7 +23,8 @@ class OptionController extends Controller
      */
     public function store(StoreOptionRequest $request)
     {
-        //
+        $option=Option::create($request->validated());
+        return new OptionResource($option);
     }
 
     /**
@@ -29,7 +32,8 @@ class OptionController extends Controller
      */
     public function show(Option $option)
     {
-        //
+        $option->load('question');
+        return new OptionResource($option);
     }
 
     /**
@@ -37,7 +41,8 @@ class OptionController extends Controller
      */
     public function update(UpdateOptionRequest $request, Option $option)
     {
-        //
+        $option->update($request->validated());
+        return new OptionResource($option);
     }
 
     /**
@@ -45,6 +50,7 @@ class OptionController extends Controller
      */
     public function destroy(Option $option)
     {
-        //
+        $option->delete();
+        return response()->json(['message'=>'Opción eliminada correctamente',200]);
     }
 }

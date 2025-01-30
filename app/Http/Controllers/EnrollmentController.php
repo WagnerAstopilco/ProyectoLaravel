@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Enrollment;
 use App\Http\Requests\StoreEnrollmentRequest;
 use App\Http\Requests\UpdateEnrollmentRequest;
+use App\Http\Resources\EnrollmentResource;
 
 class EnrollmentController extends Controller
 {
@@ -13,7 +14,8 @@ class EnrollmentController extends Controller
      */
     public function index()
     {
-        //
+        $enrollments=Enrollment::with('user', 'course', 'payments')->paginate(20);
+        return EnrollmentResource::collection($enrollments);   
     }
 
     /**
@@ -21,7 +23,8 @@ class EnrollmentController extends Controller
      */
     public function store(StoreEnrollmentRequest $request)
     {
-        //
+        $enrollment=Enrollment::create($request->validated());
+        return new EnrollmentResource($enrollment);
     }
 
     /**
@@ -29,7 +32,8 @@ class EnrollmentController extends Controller
      */
     public function show(Enrollment $enrollment)
     {
-        //
+        $enrollment->load(['user', 'course', 'payments']);
+        return new EnrollmentResource($enrollment);
     }
 
     /**
@@ -37,7 +41,8 @@ class EnrollmentController extends Controller
      */
     public function update(UpdateEnrollmentRequest $request, Enrollment $enrollment)
     {
-        //
+        $enrollment->update($request->validated());
+        return new EnrollmentResource($enrollment);
     }
 
     /**
@@ -45,6 +50,7 @@ class EnrollmentController extends Controller
      */
     public function destroy(Enrollment $enrollment)
     {
-        //
+        $enrollment->delete();
+        return response()->json(['message' => 'Matrícula eliminada correctamente'], 200);
     }
 }

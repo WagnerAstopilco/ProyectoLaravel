@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Payment;
 use App\Http\Requests\StorePaymentRequest;
 use App\Http\Requests\UpdatePaymentRequest;
+use App\Http\Resources\PaymentResource;
 
 class PaymentController extends Controller
 {
@@ -13,7 +14,8 @@ class PaymentController extends Controller
      */
     public function index()
     {
-        //
+        $payments=Payment::with('enrollment')->get();
+        return PaymentResource::collection($payments);
     }
 
     /**
@@ -21,7 +23,8 @@ class PaymentController extends Controller
      */
     public function store(StorePaymentRequest $request)
     {
-        //
+        $payment=Payment::create($request->validated());
+        return new PaymentResource($payment);
     }
 
     /**
@@ -29,7 +32,8 @@ class PaymentController extends Controller
      */
     public function show(Payment $payment)
     {
-        //
+        $payment->load('enrollment');
+        return new PaymentResource($payment);
     }
 
     /**
@@ -37,7 +41,8 @@ class PaymentController extends Controller
      */
     public function update(UpdatePaymentRequest $request, Payment $payment)
     {
-        //
+        $payment->update($request->validated());
+        return new PaymentResource($payment);
     }
 
     /**
@@ -45,6 +50,7 @@ class PaymentController extends Controller
      */
     public function destroy(Payment $payment)
     {
-        //
+        $payment->delete();
+        return response()->json(['message'=>'Pago eliminado correctamente',200]);
     }
 }

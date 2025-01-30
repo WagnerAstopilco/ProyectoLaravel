@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Lesson;
 use App\Http\Requests\StoreLessonRequest;
 use App\Http\Requests\UpdateLessonRequest;
+use App\Http\Resources\LessonResource;
 
 class LessonController extends Controller
 {
@@ -13,7 +14,8 @@ class LessonController extends Controller
      */
     public function index()
     {
-        //
+        $lessons=Lesson::with('module','sessions')->paginate(20);
+        return LessonResource::colecction($lessons);
     }
 
     /**
@@ -21,30 +23,34 @@ class LessonController extends Controller
      */
     public function store(StoreLessonRequest $request)
     {
-        //
+        $lesson=Lesson::create($request->validated());
+        return new LessonResource($lesson);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Lesson $courseLesson)
+    public function show(Lesson $lesson)
     {
-        //
+        $lesson->load(['module','sessions']);
+        return new LessonResource($lesson);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateLessonRequest $request, Lesson $courseLesson)
+    public function update(UpdateLessonRequest $request, Lesson $lesson)
     {
-        //
+        $lesson->update($request->validated());
+        return new LessonResource($lesson);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Lesson $courseLesson)
+    public function destroy(Lesson $lesson)
     {
-        //
+        $lesson->delete();
+        return response()->json(['message'=>'Lección eliminada correctamente'],200);
     }
 }

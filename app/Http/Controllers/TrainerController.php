@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Trainer;
 use App\Http\Requests\StoreTrainerRequest;
 use App\Http\Requests\UpdateTrainerRequest;
+use App\Http\Resources\TrainerResource;
 
 class TrainerController extends Controller
 {
@@ -13,7 +14,8 @@ class TrainerController extends Controller
      */
     public function index()
     {
-        //
+        $trainers=Trainer::with('user', 'courses')->get();
+        return TrainerResource::collection($trainers);
     }
 
     /**
@@ -21,7 +23,8 @@ class TrainerController extends Controller
      */
     public function store(StoreTrainerRequest $request)
     {
-        //
+        $trainer = Trainer::create($request->validated());
+        return new TrainerResource($trainer);
     }
 
     /**
@@ -29,7 +32,8 @@ class TrainerController extends Controller
      */
     public function show(Trainer $trainer)
     {
-        //
+        $trainer->load('user', 'courses');
+        return new TrainerResource($trainer);
     }
 
     /**
@@ -37,7 +41,8 @@ class TrainerController extends Controller
      */
     public function update(UpdateTrainerRequest $request, Trainer $trainer)
     {
-        //
+        $trainer->update($request->validated());
+        return new TrainerResource($trainer);
     }
 
     /**
@@ -45,6 +50,7 @@ class TrainerController extends Controller
      */
     public function destroy(Trainer $trainer)
     {
-        //
+        $trainer->delete();
+        return response()->json(['message' => 'Entrenador eliminado correctamente', 200]);
     }
 }
