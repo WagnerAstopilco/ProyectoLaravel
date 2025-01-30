@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Course;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -18,10 +19,10 @@ class CategoryResource extends JsonResource
             'id '=>$this->id ,
             'name'=>$this->name,
             'description'=>$this->description,
-            'parent'=>new CategoryResource($this->whenLoaded('parent')),
-            'parent_id'=>$this->parent_id,
             'created_at'=>$this->created_at,
             'updated_at'=>$this->updated_at,
+
+            'courses'=>CourseResource::collection($this->whenloaded('course')),
         ];
     }
 }

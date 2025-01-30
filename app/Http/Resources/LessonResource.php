@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class CourseLessonResource extends JsonResource
+class LessonResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -21,9 +21,10 @@ class CourseLessonResource extends JsonResource
             'order' => $this->order,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
+            'module_id' => $this->module_id,
 
             'module' => new ModuleResource($this->whenLoaded('module')),
-            'module_id' => $this->module_id,
+            'sessions'=>LessonSessionResource::collection($this->whenLoaded('sessions'))
         ];
     }
 }

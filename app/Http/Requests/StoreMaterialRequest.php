@@ -4,14 +4,14 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreCourseLessonRequest extends FormRequest
+class StoreMaterialRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,10 +22,13 @@ class StoreCourseLessonRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => 'required|string|max:255',
-            'description' => 'nullable|string',
-            'order' => 'required|integer|min:0',
-            'module_id' => 'required|exists:modules,id',
+            'grado'=> 'required|in:lesson,course',
+            'type'=>'required|in:file,link,video,pdf',
+            'url'=>'required|string|max:255',
+            'content'=>'required|string',
+            'title'=>'required|string|max:255',
+            'order'=>'nullable|integer|min:0',
+            'lesson_id'=>'nullable|exists:lessons,id'
         ];
     }
 }

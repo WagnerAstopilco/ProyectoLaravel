@@ -11,7 +11,7 @@ class StoreModuleRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,9 +23,8 @@ class StoreModuleRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:255',
-            'store_id' => 'required|string|max:255',
             'description' => 'nullable|string',
-            'order' => 'required|integer|min:0'
+            'order' => 'required|integer|min:0',
         ];
     }
 }

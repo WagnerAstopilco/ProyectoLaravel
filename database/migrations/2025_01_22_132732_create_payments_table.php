@@ -13,9 +13,9 @@ return new class extends Migration
             $table->id();
             $table->foreignId('enrollment_id')->constrained('enrollment')->onDelete('cascade');
             $table->string('transaction_code'); 
-            $table->string('comprobante');  
+            $table->string('voucher');  
             $table->decimal('amount', 10, 2); 
-            $table->enum('tipo',['transferencia','yape','plin','tarjeta']); 
+            $table->enum('type',['transferencia','yape','plin','tarjeta']); 
             $table->enum('status', ['pending', 'completed', 'failed']); 
             $table->timestamp('payment_date');
             $table->timestamps();

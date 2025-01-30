@@ -5,9 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class CourseLesson extends Model
+class Lesson extends Model
 {
     use HasFactory;
+
+    protected $table='lessons';
 
     protected $fillable=[
         'title',
@@ -15,8 +17,19 @@ class CourseLesson extends Model
         'order',
     ];
 
+    //relacion con modules
     public function module()
     {
         return $this->belongsTo(Module::class);
+    }
+
+    public function sessions()
+    {
+        return $this->hasMany(LessonSession::class);
+    }
+
+    public function materials()
+    {
+        return $this->hasMany(Material::class);
     }
 }

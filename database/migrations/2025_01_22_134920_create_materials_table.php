@@ -19,7 +19,7 @@ return new class extends Migration
             $table->text('content');
             $table->string('title');
             $table->integer('order')->nullable();
-            $table->foreignId('lesson_id')->constrained('course_lessons')->onDelete('cascade')->nullable();
+            $table->foreignId('lesson_id')->constrained('lessons')->onDelete('cascade')->nullable();
             $table->timestamps();
         });
     }

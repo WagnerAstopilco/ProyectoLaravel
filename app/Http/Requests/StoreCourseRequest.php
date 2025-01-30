@@ -11,7 +11,7 @@ class StoreCourseRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,11 +22,11 @@ class StoreCourseRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name_long' => 'required|string|max:255',
-            'name_short' => 'required|string|max:100',
-            'price' => 'required|numeric|min:0',
+            'name_long' => 'required|string|max:255|unique:courses,name_long',
+            'name_short' => 'required|string|max:100|unique:courses,name_short',
+            'price' => 'required|numeric|min:0|max:999999.99',
             'discount' => 'nullable|numeric|min:0|max:100',
-            'image' => 'nullable|string|max:255', 
+            'image' => 'required|string|max:255',
             'description' => 'required|string',
             'store_id' => 'required|string|max:255',
             'category_id' => 'required|exists:categories,id',

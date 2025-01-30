@@ -14,6 +14,8 @@ return new class extends Migration
             $table->string('last_names');            
             $table->string('email')->unique();
             $table->string('password');
+            $table->enum('role', ['admin', 'comercial', 'supervisor', 'alumno', 'capacitador']);
+            $table->enum('status', ['active', 'inactive']);
             $table->string('phone_number')->nullable();
             $table->date('birthday_date')->nullable();
             $table->string('country')->nullable();
@@ -25,8 +27,6 @@ return new class extends Migration
             $table->string('photo')->nullable();
             $table->string('speciality')->nullable();
             $table->text('biography')->nullable();
-            $table->enum('role', ['admin', 'comercial', 'supervisor', 'alumno', 'capacitador']);
-            $table->enum('status', ['active', 'inactive']);
             $table->timestamps();
         });
     }

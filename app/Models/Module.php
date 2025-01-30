@@ -9,6 +9,8 @@ class Module extends Model
 {
     use HasFactory;
 
+    protected $table='modules';
+
     protected $fillable=[
         'name',
         'description',
@@ -18,6 +20,11 @@ class Module extends Model
     //relacion course_lesson
     public function lessons()
     {
-        return $this->hasMany(CourseLesson::class);
+        return $this->hasMany(Lesson::class);
+    }
+
+    public function courses()
+    {
+        return $this->belongsToMany(Course::class, 'course_modules');
     }
 }

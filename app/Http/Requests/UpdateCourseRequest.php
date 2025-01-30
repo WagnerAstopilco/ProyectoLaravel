@@ -11,7 +11,7 @@ class UpdateCourseRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,14 @@ class UpdateCourseRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name_long' => 'sometimes|required|string|max:255|unique:courses,name_long,' . $this->course->id,
+            'name_short' => 'sometimes|required|string|max:100|unique:courses,name_short,' . $this->course->id,
+            'price' => 'sometimes|required|numeric|min:0|max:999999.99',
+            'discount' => 'sometimes|nullable|numeric|min:0|max:100',
+            'image' => 'sometimes|required|string|max:255',
+            'description' => 'sometimes|required|string',
+            'store_id' => 'sometimes|required|string|max:255',
+            'category_id' => 'sometimes|required|exists:categories,id',
         ];
     }
 }

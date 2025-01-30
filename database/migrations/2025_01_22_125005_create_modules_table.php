@@ -12,7 +12,6 @@ return new class extends Migration
         Schema::create('modules', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('store_id');
             $table->text('description')->nullable();
             $table->integer('order');
             $table->timestamps();            

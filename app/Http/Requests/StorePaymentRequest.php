@@ -4,14 +4,14 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateCourseLessonRequest extends FormRequest
+class StorePaymentRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,13 @@ class UpdateCourseLessonRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'enrollment_id'=>'required|exists:enrollments,id',
+            'transaction_code'=>'required|string|max:255',
+            'voucher'=>'required|string|max:255',
+            'amount'=>'required|numeric|min:0',
+            'type'=>'rquired|in:transferencia,yape,plin,tarjeta',
+            'status'=>'required|in:pending,completed,failed',
+            'payment_date'=>'required|date'
         ];
     }
 }

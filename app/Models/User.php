@@ -8,15 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class User extends Model
 {
     use HasFactory;
+
+    protected $table='users';
     
     protected $fillable = [
         'names',
         'last_names',
         'email',
         'phone_number',
-        'birthday_date',
-        'birthday_date',
-        'birthday_date',
         'birthday_date',
         'country',
         'city',
@@ -35,21 +34,24 @@ class User extends Model
         'password',
     ];
 
-    public static function boot()
+    public function trainer()
     {
-        parent::boot();
-
-        static::creating(function ($usuario) {
-            if ($usuario->password) {
-                $usuario->password = bcrypt($usuario->password);
-            }
-        });
+        return $this->belongsTo(Trainer::class);
     }
 
+    public function certificates()
+    {
+        return $this->hasMany(Certificate::class);
+    }
 
+    public function enrollments()
+    {
+        return $this->hasMany(Enrollment::class);
+    }
+    
+    public function userEvaluations(){
+        return $this->hasMany(UserEvaluation::class);
+    }
 }
-
-
-$table->id();
             
             

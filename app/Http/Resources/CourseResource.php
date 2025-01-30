@@ -25,9 +25,15 @@ class CourseResource extends JsonResource
             'store_id' => $this->store_id,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
-
-            'category' => new CategoryResource($this->whenLoaded('category')),
             'category_id' => $this->category_id,
+
+            'category'=>new CategoryResource($this->whenLoaded('category')),
+            'trainers' => TrainerResource::collection($this->whenLoaded('trainers')),
+            'modules' => ModuleResource::collection($this->whenLoaded('modules')),
+            'evaluations' => EvaluationResource::collection($this->whenLoaded('evaluations')),
+            'certificates' => CertificateResource::collection($this->whenLoaded('certificates')),
+            'enrollments' => EnrollmentResource::collection($this->whenLoaded('enrollments')),
+            'materials' => MaterialResource::collection($this->whenLoaded('materials')),
         ];
     }
 }
