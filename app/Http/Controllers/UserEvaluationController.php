@@ -51,6 +51,6 @@ class UserEvaluationController extends Controller
     public function destroy(UserEvaluation $userEvaluation)
     {
         $userEvaluation->delete();
-        return response()->json(['message' => 'Evaluación de usuario eliminada correctamente', 200]);
+        return response()->json(['message' => 'Evaluación de usuario eliminada correctamente'],200);
     }
 }

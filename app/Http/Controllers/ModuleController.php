@@ -6,6 +6,7 @@ use App\Models\Module;
 use App\Http\Requests\StoreModuleRequest;
 use App\Http\Requests\UpdateModuleRequest;
 use App\Http\Resources\ModuleResource;
+use Illuminate\Http\Request;
 
 class ModuleController extends Controller
 {
@@ -51,6 +52,19 @@ class ModuleController extends Controller
     public function destroy(Module $module)
     {
         $module->delete();
-        return response()->json(['message'=>'Módulo eliminado correctamente',200]);
+        return response()->json(['message'=>'Módulo eliminado correctamente'],200);
+    }
+
+    public function modifiedCoursesToModule(Request $request, $moduleId)
+    {        
+        $module = Module::findOrFail($moduleId);
+
+        $module->courses()->sync($request->course_ids);
+
+        return response()->json([
+            'message' => 'Módulo asignado al curso correctamente.',
+            'module' => $module,
+            'module' => $module->courses
+        ],200);
     }
 }

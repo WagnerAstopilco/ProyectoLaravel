@@ -12,6 +12,8 @@ class Enrollment extends Model
     protected $table='enrollments';
 
     protected $fillable = [
+        'user_id',
+        'course_id',
         'enrollment_date',
         'end_enrollment_date',
         'status'

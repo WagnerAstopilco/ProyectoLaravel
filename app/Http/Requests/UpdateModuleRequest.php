@@ -25,6 +25,9 @@ class UpdateModuleRequest extends FormRequest
             'name' => 'sometimes|required|string|max:255',
             'description' => 'sometimes|nullable|string',
             'order' => 'sometimes|required|integer|min:0',
+
+            'course_ids' => 'sometimes|nullable|array',  
+            'course_ids.*' => 'sometimes|exists:courses,id'
         ];
     }
 }

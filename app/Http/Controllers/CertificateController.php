@@ -14,7 +14,7 @@ class CertificateController extends Controller
      */
     public function index()
     {
-        $certificates=Certificate::with('user','course')->get();
+        $certificates=Certificate::with(['user','course'])->get();
         return CertificateResource::collection($certificates);
     }
 
@@ -32,7 +32,7 @@ class CertificateController extends Controller
      */
     public function show(Certificate $certificate)
     {
-        $certificate->load(['user','course']);
+        $certificate->load(['user','course'])->get();
         return new CertificateResource($certificate);
     }
 

@@ -16,7 +16,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        return UserResource::collection(User::all());
+        return UserResource::collection(User::with(['trainer','certificates','enrollments','userEvaluations'])->get());
     }
 
     /**
@@ -25,9 +25,8 @@ class UserController extends Controller
     public function store(StoreUserRequest $request)
     {
         $validatedData = $request->validated();
-
-        $validatedData['password'] = Hash::make($validatedData['password']);
-    
+        $validatedData['password'] = Hash::make($request->password);
+       
         if ($request->hasFile('photo')) {
             $path = $request->file('photo')->store('users', 'public');
             $validatedData['photo'] = $path;
@@ -53,24 +52,11 @@ class UserController extends Controller
     {
         
         $validatedData = $request->validated();
+        $validatedData['password'] = Hash::make($request->password);
+       
         if ($request->hasFile('photo')) {
-
-            if ($user->photo) {
-                Storage::disk('public')->delete($user->photo);
-            }
-
             $path = $request->file('photo')->store('users', 'public');
             $validatedData['photo'] = $path;
-        } else {
-
-            $validatedData['photo'] = $user->photo;
-        }
-
-        if (!empty($validatedData['password'])) {
-            $validatedData['password'] = Hash::make($validatedData['password']);
-        } else {
-   
-            $validatedData['password'] = $user->password;
         }
 
         $user->update($validatedData);
@@ -84,6 +70,6 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         $user->delete();
-        return response()->json(['message' => 'Usuario eliminado correctamente', 200]);
+        return response()->json(['message' => 'Usuario eliminado correctamente'],200);
     }
 }

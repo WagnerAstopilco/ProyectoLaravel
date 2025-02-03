@@ -22,7 +22,7 @@ class CategoryResource extends JsonResource
             'created_at'=>$this->created_at,
             'updated_at'=>$this->updated_at,
 
-            'courses'=>CourseResource::collection($this->whenloaded('course')),
+            'courses'=>CourseResource::collection($this->whenloaded('courses')),
         ];
     }
 }

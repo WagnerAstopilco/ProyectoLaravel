@@ -24,7 +24,8 @@ class LessonResource extends JsonResource
             'module_id' => $this->module_id,
 
             'module' => new ModuleResource($this->whenLoaded('module')),
-            'sessions'=>LessonSessionResource::collection($this->whenLoaded('sessions'))
+            'sessions'=>LessonSessionResource::collection($this->whenLoaded('sessions')),
+            'materials'=>MaterialResource::collection($this->whenLoaded('materials')),
         ];
     }
 }

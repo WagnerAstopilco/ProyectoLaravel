@@ -30,6 +30,15 @@ class UpdateCourseRequest extends FormRequest
             'description' => 'sometimes|required|string',
             'store_id' => 'sometimes|required|string|max:255',
             'category_id' => 'sometimes|required|exists:categories,id',
+
+            'module_ids' =>'sometimes|nullable|array',  
+            'module_ids.*' =>'sometimes|exists:modules,id',
+
+            'material_ids'=>'sometimes|nullable|array',
+            'material_ids.*'=>'sometimes|exists:materials,id',
+
+            'trainer_ids'=>'sometimes|nullable|array',
+            'trainer_ids.*'=>'sometimes|exists:trainers,id'
         ];
     }
 }

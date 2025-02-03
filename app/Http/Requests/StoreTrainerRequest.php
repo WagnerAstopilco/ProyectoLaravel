@@ -24,6 +24,9 @@ class StoreTrainerRequest extends FormRequest
         return [
             'certifications'=>'required|string',
             'user_id'=>'required|exists:users,id',
+
+            'course_ids'=>'nullable|array',
+            'course_ids.*'=>'exists:courses,id'
         ];
     }
 }

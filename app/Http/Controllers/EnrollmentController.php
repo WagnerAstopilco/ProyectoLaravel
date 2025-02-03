@@ -51,6 +51,6 @@ class EnrollmentController extends Controller
     public function destroy(Enrollment $enrollment)
     {
         $enrollment->delete();
-        return response()->json(['message' => 'Matrícula eliminada correctamente'], 200);
+        return response()->json(['message' => 'Matrícula eliminada correctamente'],200);
     }
 }

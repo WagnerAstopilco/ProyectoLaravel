@@ -12,6 +12,8 @@ class UserAnswer extends Model
     protected $table = 'user_answers';
 
     protected $fillable =[
+        'user_evaluation_id',
+        'question_id',
         'answer_text',
         'is_correct'
     ];

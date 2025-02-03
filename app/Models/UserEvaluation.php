@@ -12,6 +12,8 @@ class UserEvaluation extends Model
     protected $table='user_evaluations';
 
     protected $fillable=[
+        'user_id',
+        'evaluation_id',
         'attempt_number',
         'start_time',
         'end_time',

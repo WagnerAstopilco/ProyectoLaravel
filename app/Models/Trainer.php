@@ -11,15 +11,18 @@ class Trainer extends Model
 
     protected $table = 'trainers';
 
-    protected $fillable = ['certifications'];
+    protected $fillable = [
+        'certifications',
+        'user_id'
+    ];
 
     public function user()
     {
-        return $this->hasOne(User::class);
+        return $this->belongsTo(User::class);
     }
 
     public function courses()
     {
-        return $this->belongsToMany(Course::class, 'trainer_courses');
+        return $this->belongsToMany(Course::class, 'course_trainer');
     }
 }

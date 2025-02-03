@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Course;
 use App\Http\Requests\StoreCourseRequest;
 use App\Http\Requests\UpdateCourseRequest;
 use App\Http\Resources\CourseResource;
+use App\Models\Course;
+use Illuminate\Http\Request;
 
 class CourseController extends Controller
 {
@@ -50,6 +51,48 @@ class CourseController extends Controller
     public function destroy(Course $course)
     {
         $course->delete();
-        return response()->json(['message' => 'Curso eliminado correctamente'], 200);
+        return response()->json(['message' => 'Curso eliminado correctamente'],200);
     }
+
+    
+    public function modifiedModulesToCourse(Request $request, $courseId)
+    {
+        $course = Course::findOrFail($courseId);
+
+        $course->modules()->sync($request->module_ids);
+
+        return response()->json([
+            'message' => 'Módulo asignado al curso correctamente.',
+            'course' => $course,
+            'module' => $course->modules
+        ],200);
+    }
+
+
+    public function modifiedMaterialsToCourse(Request $request,$courseId)
+    {
+        $course=Course::findOrFail($courseId);
+
+        $course->materials()->sync($request->material_ids);
+
+        return response()->json([
+            'message'=>'Materiales agregados correctamente',
+            'course'=>$course,
+            'materials'=>$course->materials
+        ],200);
+    }
+
+    public function modifiedTrainersToCourse(Request $request,$courseId)
+    {
+        $course=Course::findOrFail($courseId);
+
+        $course->trainers()->sync($request->trainer_ids);
+
+        return response()->json([
+            'message'=>'Entrenadores agregados correctamente',
+            'course'=>$course,
+            'trainers'=>$course->trainers            
+        ],200);
+    }
+
 }

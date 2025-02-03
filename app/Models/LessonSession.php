@@ -12,6 +12,7 @@ class LessonSession extends Model
     protected $table='lesson_sessions';
 
     protected $fillable=[
+        'lesson_id',
         'session_date',
         'type',
         'link',

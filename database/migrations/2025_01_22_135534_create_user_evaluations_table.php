@@ -19,7 +19,7 @@ return new class extends Migration
             $table->timestamp('start_time');
             $table->timestamp('end_time');
             $table->decimal('score',5,2);
-            $table->enum('status',['comleted','in_progress','failed']);
+            $table->enum('status',['completed','in_progress','failed']);
             $table->timestamps();
         });
     }

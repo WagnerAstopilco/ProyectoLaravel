@@ -51,6 +51,6 @@ class OptionController extends Controller
     public function destroy(Option $option)
     {
         $option->delete();
-        return response()->json(['message'=>'Opción eliminada correctamente',200]);
+        return response()->json(['message'=>'Opción eliminada correctamente'],200);
     }
 }

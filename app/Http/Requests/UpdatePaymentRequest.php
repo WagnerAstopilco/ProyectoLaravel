@@ -26,7 +26,7 @@ class UpdatePaymentRequest extends FormRequest
             'transaction_code'=>'sometimes|required|string|max:255',
             'voucher'=>'sometimes|required|string|max:255',
             'amount'=>'sometimes|required|numeric|min:0',
-            'type'=>'sometimes|rquired|in:transferencia,yape,plin,tarjeta',
+            'type'=>'sometimes|required|in:transferencia,yape,plin,tarjeta',
             'status'=>'sometimes|required|in:pending,completed,failed',
             'payment_date'=>'sometimes|required|date'
         ];

@@ -17,6 +17,7 @@ class Evaluation extends Model
         'end_date',
         'duration',
         'attempts_allowed',
+        'course_id'
     ];
 
     public function course()

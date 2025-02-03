@@ -51,6 +51,6 @@ class PaymentController extends Controller
     public function destroy(Payment $payment)
     {
         $payment->delete();
-        return response()->json(['message'=>'Pago eliminado correctamente',200]);
+        return response()->json(['message'=>'Pago eliminado correctamente'],200);
     }
 }

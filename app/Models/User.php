@@ -26,17 +26,14 @@ class User extends Model
         'photo',
         'speciality',
         'biography',
-        
-    ];
-    protected $guarded = [
+        'password',
         'role',
         'status',
-        'password',
     ];
 
     public function trainer()
     {
-        return $this->belongsTo(Trainer::class);
+        return $this->hasOne(Trainer::class);
     }
 
     public function certificates()

@@ -18,6 +18,7 @@ class Material extends Model
         'content',
         'title',
         'order',
+        'lesson_id'
     ];
 
     public function lesson()
@@ -27,6 +28,6 @@ class Material extends Model
 
     public function courses()
     {
-        return $this->belongsToMany(Course::class, 'course_materials');
+        return $this->belongsToMany(Course::class, 'course_material');
     }
 }

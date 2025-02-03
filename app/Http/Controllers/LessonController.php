@@ -14,8 +14,8 @@ class LessonController extends Controller
      */
     public function index()
     {
-        $lessons=Lesson::with('module','sessions')->paginate(20);
-        return LessonResource::colecction($lessons);
+        $lessons=Lesson::with('module','sessions','materials')->paginate(20);
+        return LessonResource::collection($lessons);
     }
 
     /**
@@ -32,7 +32,7 @@ class LessonController extends Controller
      */
     public function show(Lesson $lesson)
     {
-        $lesson->load(['module','sessions']);
+        $lesson->load(['module','sessions','materials']);
         return new LessonResource($lesson);
     }
 

@@ -23,7 +23,7 @@ class UpdateEvaluationRequest extends FormRequest
     {
         return [
             'title'=>'sometimes|required|string|max:255',
-            'start_date'=>'sometimes|requred|date',
+            'start_date'=>'sometimes|required|date',
             'end_date'=>'sometimes|required|date',
             'duration'=>'sometimes|required|date_format:H:i:s',
             'attempts_allowed'=>'sometimes|required|integer|min:1',

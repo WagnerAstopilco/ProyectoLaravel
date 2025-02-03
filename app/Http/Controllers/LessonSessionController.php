@@ -14,7 +14,7 @@ class LessonSessionController extends Controller
      */
     public function index()
     {
-        $lessonSessions=LessonSession::with('lessons')->paginate(20);
+        $lessonSessions=LessonSession::with('lesson')->paginate(20);
         return LessonSessionResource::collection($lessonSessions);
     }
 
@@ -32,7 +32,7 @@ class LessonSessionController extends Controller
      */
     public function show(LessonSession $lessonSession)
     {
-        $lessonSession->load('lessons');
+        $lessonSession->load('lesson');
         return new LessonSessionResource($lessonSession);
     }
 
@@ -51,6 +51,6 @@ class LessonSessionController extends Controller
     public function destroy(LessonSession $lessonSession)
     {
         $lessonSession->delete();
-        return response()->json(['message'=>'Sesión de lección eliminada correctamente',200]);
+        return response()->json(['message'=>'Sesión de lección eliminada correctamente'],200);
     }
 }

@@ -6,6 +6,7 @@ use App\Models\Material;
 use App\Http\Requests\StoreMaterialRequest;
 use App\Http\Requests\UpdateMaterialRequest;
 use App\Http\Resources\MaterialResource;
+use Illuminate\Http\Request;
 
 class MaterialController extends Controller
 {
@@ -51,6 +52,19 @@ class MaterialController extends Controller
     public function destroy(Material $material)
     {
         $material->delete();
-        return response()->json(['message'=>'Material eliminado correctamente',200]);
+        return response()->json(['message'=>'Material eliminado correctamente'],200);
+    }
+
+    public function modifiedMaterialToCourse(Request $request, $materialId)
+    { 
+        $material = Material::findOrFail($materialId);
+
+        $material->courses()->sync($request->course_ids);
+
+        return response()->json([
+            'message' => 'Material asignado al curso correctamente.',
+            'material' => $material,
+            'material' => $material->courses
+        ],200);
     }
 }

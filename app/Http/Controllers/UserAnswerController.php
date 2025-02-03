@@ -51,6 +51,6 @@ class UserAnswerController extends Controller
     public function destroy(UserAnswer $userAnswer)
     {
         $userAnswer->delete();
-        return response()->json(['message' => 'Respuesta de usuario eliminada correctamente', 200]);
+        return response()->json(['message' => 'Respuesta de usuario eliminada correctamente'],200);
     }
 }

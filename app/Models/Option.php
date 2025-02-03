@@ -12,6 +12,7 @@ class Option extends Model
     protected $table = 'options';
 
     protected $fillable = [
+        'question_id',
         'option',
         'is_correct',
     ];

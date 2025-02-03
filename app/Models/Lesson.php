@@ -15,6 +15,7 @@ class Lesson extends Model
         'title',
         'description',
         'order',
+        'module_id'
     ];
 
     //relacion con modules

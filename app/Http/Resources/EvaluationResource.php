@@ -16,17 +16,16 @@ class EvaluationResource extends JsonResource
     {
         return [
             'id'=>$this->id,
-            'user_id'=>$this->user_id,
-            'evaluation_id'=>$this->evaluation_id,
             'title'=>$this->title,
             'start_date'=>$this->start_date,
             'end_date'=>$this->end_date,
             'duration'=>$this->duration,
             'attempts_allowed'=>$this->attempts_allowed,
+            'course_id'=>$this->course_id,
             
-            'course_id'=>new CourseResource($this->whenLoaded('course')),
-            'question'=>QuestionResource::collection($this->whenLoaded('questions')),
-            'user_evaluation'=>UserEvaluationResource::collection($this->whenLoaded('userEvaluations')),
+            'courses'=>new CourseResource($this->whenLoaded('course')),
+            'questions'=>QuestionResource::collection($this->whenLoaded('questions')),
+            'user_evaluations'=>UserEvaluationResource::collection($this->whenLoaded('userEvaluations')),
         ];
     }
 }

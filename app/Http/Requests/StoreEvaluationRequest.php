@@ -23,7 +23,7 @@ class StoreEvaluationRequest extends FormRequest
     {
         return [
             'title'=>'required|string|max:255',
-            'start_date'=>'requred|date',
+            'start_date'=>'required|date',
             'end_date'=>'required|date',
             'duration'=>'required|date_format:H:i:s',
             'attempts_allowed'=>'required|integer|min:1',

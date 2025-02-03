@@ -51,6 +51,6 @@ class QuestionController extends Controller
     public function destroy(Question $question)
     {
         $question->delete();
-        return response()->json(['message' => 'Pregunta eliminada correctamente', 200]);
+        return response()->json(['message' => 'Pregunta eliminada correctamente'],200);
     }
 }

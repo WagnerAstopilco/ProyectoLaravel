@@ -6,6 +6,7 @@ use App\Models\Trainer;
 use App\Http\Requests\StoreTrainerRequest;
 use App\Http\Requests\UpdateTrainerRequest;
 use App\Http\Resources\TrainerResource;
+use Illuminate\Http\Request;
 
 class TrainerController extends Controller
 {
@@ -14,7 +15,7 @@ class TrainerController extends Controller
      */
     public function index()
     {
-        $trainers=Trainer::with('user', 'courses')->get();
+        $trainers=Trainer::with(['user','courses'])->get();
         return TrainerResource::collection($trainers);
     }
 
@@ -32,7 +33,7 @@ class TrainerController extends Controller
      */
     public function show(Trainer $trainer)
     {
-        $trainer->load('user', 'courses');
+        $trainer->load('user','courses');
         return new TrainerResource($trainer);
     }
 
@@ -51,6 +52,19 @@ class TrainerController extends Controller
     public function destroy(Trainer $trainer)
     {
         $trainer->delete();
-        return response()->json(['message' => 'Entrenador eliminado correctamente', 200]);
+        return response()->json(['message' => 'Entrenador eliminado correctamente'],200);
+    }
+
+    public function modifiedTrainerToCourse(Request $request, $trainerId)
+    { 
+        $trainer = Trainer::findOrFail($trainerId);
+
+        $trainer->courses()->sync($request->course_ids);
+
+        return response()->json([
+            'message' => 'Entrenador asignado al curso correctamente.',
+            'trainer' => $trainer,
+            'trainer' => $trainer->courses
+        ],200);
     }
 }

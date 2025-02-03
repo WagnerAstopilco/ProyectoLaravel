@@ -19,6 +19,7 @@ class Course extends Model
     'image',
     'description',    
     'store_id',
+    'category_id'
     ];
 
     //relacion con category
@@ -29,12 +30,12 @@ class Course extends Model
     
     public function trainers()
     {
-        return $this->belongsToMany(Trainer::class, 'trainer_courses');
+        return $this->belongsToMany(Trainer::class, 'course_trainer');
     }
 
     public function modules()
     {
-        return $this->belongsToMany(Module::class, 'course_modules');
+        return $this->belongsToMany(Module::class, 'course_module');
     }
 
     public function evaluations()
@@ -53,7 +54,7 @@ class Course extends Model
     }
 
     public function materials(){
-        return $this->belongsToMany(Material::class, 'course_materials');
+        return $this->belongsToMany(Material::class, 'course_material');
     }
 
 }

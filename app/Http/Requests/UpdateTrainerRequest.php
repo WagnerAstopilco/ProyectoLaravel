@@ -24,6 +24,9 @@ class UpdateTrainerRequest extends FormRequest
         return [
             'certifications'=>'sometimes|required|string',
             'user_id'=>'sometimes|required|exists:users,id',
+
+            'course_ids'=>'nullable|array',
+            'course_ids.*'=>'exists:courses,id'
         ];
     }
 }
