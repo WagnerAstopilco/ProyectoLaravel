@@ -36,8 +36,19 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 
-Route::get('/users',[UserController::class,'index']);
+//specific routes of courses
+Route::post('/courses/{courseId}/modules', [CourseController::class, 'modifiedModulesToCourse']);
+Route::post('/courses/{courseId}/materials',[CourseController::class, 'modifiedMaterialsToCourse']);
+Route::post('/courses/{courseId}/trainers',[CourseController::class, 'modifiedTrainersToCourse']);
 
+//specific routes of modules
+Route::post('/modules/{moduleId}/courses', [ModuleController::class, 'modifiedCoursesToModule']);
+
+//specific routes of material
+Route::post('/materials/{materialId}/courses', [MaterialController::class, 'modifiedMaterialToCourse']);
+
+//specific routes of trainers
+Route::post('/trainers/{trainerId}/courses', [TrainerController::class, 'modifiedTrainerToCourse']);
 
 //basic routes
 Route::apiResource('/category',CategoryController::class);
@@ -57,16 +68,3 @@ Route::apiResource('/payments',PaymentController::class);
 Route::apiResource('/userEvaluations',UserEvaluationController::class);
 Route::apiResource('/userAnswers',UserAnswerController::class);
 
-//specific routes of courses
-Route::post('/courses/{courseId}/modules', [CourseController::class, 'modifiedModulesToCourse']);
-Route::post('/courses/{courseId}/materials',[CourseController::class, 'modifiedMaterialsToCourse']);
-Route::post('/courses/{courseId}/trainers',[CourseController::class, 'modifiedTrainersToCourse']);
-
-//specific routes of modules
-Route::post('/modules/{moduleId}/courses', [ModuleController::class, 'modifiedCoursesToModule']);
-
-//specific routes of material
-Route::post('/materials/{materialId}/courses', [MaterialController::class, 'modifiedMaterialToCourse']);
-
-//specific routes of trainers
-Route::post('/trainers/{trainerId}/courses', [TrainerController::class, 'modifiedTrainerToCourse']);
