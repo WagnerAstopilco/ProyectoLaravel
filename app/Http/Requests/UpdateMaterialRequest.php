@@ -30,8 +30,7 @@ class UpdateMaterialRequest extends FormRequest
             'order'=>'sometimes|nullable|integer|min:0',
             'lesson_id'=>'sometimes|nullable|exists:lessons,id',
 
-            'course_ids'=>'sometimes|nullable|array',
-            'course_ids.*'=>'sometimes|exists:courses,id'
+            'course_id'=>'sometimes|nullable|exists:courses,id'
         ];
     }
 }

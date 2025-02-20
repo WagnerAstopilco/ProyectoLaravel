@@ -30,9 +30,7 @@ class StoreMaterialRequest extends FormRequest
             'order'=>'nullable|integer|min:0',
             'lesson_id'=>'nullable|exists:lessons,id',
 
-            
-            'course_ids'=>'nullable|array',
-            'course_ids.*'=>'exists:courses,id'
+            'course_id'=>'nullable|exists:courses,id'
         ];
     }
 }

@@ -55,11 +55,11 @@ class MaterialController extends Controller
         return response()->json(['message'=>'Material eliminado correctamente'],200);
     }
 
-    public function modifiedMaterialToCourse(Request $request, $materialId)
+    public function modifiedMaterialToCourse($materialId,$courseId)
     { 
         $material = Material::findOrFail($materialId);
 
-        $material->courses()->sync($request->course_ids);
+        $material->courses()->attach($courseId);
 
         return response()->json([
             'message' => 'Material asignado al curso correctamente.',
@@ -67,4 +67,16 @@ class MaterialController extends Controller
             'material' => $material->courses
         ],200);
     }
+    public function removeMaterialFromCourse($materialId, $courseId)
+{
+    $material = Material::findOrFail($materialId);
+    $material->courses()->detach($courseId);
+
+    return response()->json([
+        'message' => 'Curso eliminado del material correctamente.',
+        'material' => $material,
+        'courses' => $material->courses
+    ], 200);
+}
+
 }

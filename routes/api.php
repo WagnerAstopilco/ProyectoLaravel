@@ -45,7 +45,8 @@ Route::post('/courses/{courseId}/trainers',[CourseController::class, 'modifiedTr
 Route::post('/modules/{moduleId}/courses', [ModuleController::class, 'modifiedCoursesToModule']);
 
 //specific routes of material
-Route::post('/materials/{materialId}/courses', [MaterialController::class, 'modifiedMaterialToCourse']);
+Route::post('/materials/{materialId}/{courseId}', [MaterialController::class, 'modifiedMaterialToCourse']);
+Route::delete('/materials/{materialId}/{courseId}', [MaterialController::class, 'removeMaterialFromCourse']);
 
 //specific routes of trainers
 Route::post('/trainers/{trainerId}/courses', [TrainerController::class, 'modifiedTrainerToCourse']);
