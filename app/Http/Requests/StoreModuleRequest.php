@@ -26,8 +26,7 @@ class StoreModuleRequest extends FormRequest
             'description' => 'nullable|string',
             'order' => 'required|integer|min:0',
 
-            'course_ids' => 'nullable|array',  
-            'course_ids.*' => 'exists:courses,id'
+            'course_id' => 'nullable|exists:courses,id',  
         ];
     }
 }

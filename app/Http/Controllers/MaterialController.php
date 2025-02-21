@@ -68,15 +68,15 @@ class MaterialController extends Controller
         ],200);
     }
     public function removeMaterialFromCourse($materialId, $courseId)
-{
-    $material = Material::findOrFail($materialId);
-    $material->courses()->detach($courseId);
+    {
+        $material = Material::findOrFail($materialId);
+        $material->courses()->detach($courseId);
 
-    return response()->json([
-        'message' => 'Curso eliminado del material correctamente.',
-        'material' => $material,
-        'courses' => $material->courses
-    ], 200);
-}
+        return response()->json([
+            'message' => 'Curso eliminado del material correctamente.',
+            'material' => $material,
+            'courses' => $material->courses
+        ], 200);
+    }
 
 }
