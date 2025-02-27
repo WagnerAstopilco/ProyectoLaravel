@@ -7,6 +7,7 @@ use App\Http\Requests\UpdateCourseRequest;
 use App\Http\Resources\CourseResource;
 use App\Models\Course;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class CourseController extends Controller
 {
@@ -23,8 +24,22 @@ class CourseController extends Controller
      */
     public function store(StoreCourseRequest $request)
     {
-        $course = Course::create($request->validated());
-        return new CourseResource($course);
+        // $validatedData = $request->validated();
+
+        // if ($request->hasFile('image')) {
+        //     $path = $request->file('image')->store('image/cursos', 'public');
+        //     $validatedData['image'] = $path;
+        // }
+
+        // $curso = Course::create($validatedData);
+        // return new CourseResource($curso);
+
+        $validatedData = $request->validated();
+        if ($request->hasFile('image')) {
+            $validatedData['image'] = $this->handleImageUpload($request);
+        }
+        $curso = Course::create($validatedData);
+        return new CourseResource($curso);
     }
 
     /**
@@ -41,7 +56,15 @@ class CourseController extends Controller
      */
     public function update(UpdateCourseRequest $request, Course $course)
     {
-        $course->update($request->validated());
+        $validatedData = $request->validated();
+
+        if ($request->hasFile('image')) {
+            if ($course->image) {
+                Storage::disk('public')->delete($course->image);
+            }
+            $validatedData['image'] = $this->handleImageUpload($request);
+        }
+        $course->update($validatedData);
         return new CourseResource($course);
     }
 
@@ -93,6 +116,11 @@ class CourseController extends Controller
             'course'=>$course,
             'trainers'=>$course->trainers            
         ],200);
+    }
+
+    private function handleImageUpload($request)
+    {
+        return $request->file('image')->store('image/cursos', 'public');
     }
 
 }
