@@ -57,7 +57,7 @@ class CourseController extends Controller
     public function update(UpdateCourseRequest $request, Course $course)
     {
         $validatedData = $request->validated();
-
+        \Log::info('Datos del curso a actualizar: ', $validatedData);
         if ($request->hasFile('image')) {
             if ($course->image) {
                 Storage::disk('public')->delete($course->image);
