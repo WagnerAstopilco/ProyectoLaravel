@@ -24,22 +24,16 @@ class CourseController extends Controller
      */
     public function store(StoreCourseRequest $request)
     {
-        // $validatedData = $request->validated();
-
-        // if ($request->hasFile('image')) {
-        //     $path = $request->file('image')->store('image/cursos', 'public');
-        //     $validatedData['image'] = $path;
-        // }
-
-        // $curso = Course::create($validatedData);
-        // return new CourseResource($curso);
-
         $validatedData = $request->validated();
+
         if ($request->hasFile('image')) {
-            $validatedData['image'] = $this->handleImageUpload($request);
+            $path = $request->file('image')->store('image/cursos', 'public');
+            $validatedData['image'] = $path;
         }
+
         $curso = Course::create($validatedData);
         return new CourseResource($curso);
+
     }
 
     /**
@@ -57,13 +51,17 @@ class CourseController extends Controller
     public function update(UpdateCourseRequest $request, Course $course)
     {
         $validatedData = $request->validated();
-        \Log::info('Datos del curso a actualizar: ', $validatedData);
+
         if ($request->hasFile('image')) {
             if ($course->image) {
                 Storage::disk('public')->delete($course->image);
             }
-            $validatedData['image'] = $this->handleImageUpload($request);
+            $path = $request->file('image')->store('image/cursos', 'public');
+            $validatedData['image'] = $path;
+        } else {
+            $validatedData['image'] = $course->image;
         }
+
         $course->update($validatedData);
         return new CourseResource($course);
     }
@@ -117,10 +115,4 @@ class CourseController extends Controller
             'trainers'=>$course->trainers            
         ],200);
     }
-
-    private function handleImageUpload($request)
-    {
-        return $request->file('image')->store('image/cursos', 'public');
-    }
-
 }

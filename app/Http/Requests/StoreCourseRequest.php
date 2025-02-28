@@ -26,7 +26,7 @@ class StoreCourseRequest extends FormRequest
             'name_short' => 'required|string|max:100|unique:courses,name_short|regex:/^[a-zA-Z0-9_-]+$/',
             'price' => 'required|numeric|min:0|max:999999.99',
             'discount' => 'nullable|numeric|min:0|max:100',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image' => 'sometimes|nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'description' => 'required|string',
             'store_id' => 'required|string|max:255',
             'category_id' => 'required|exists:categories,id',
