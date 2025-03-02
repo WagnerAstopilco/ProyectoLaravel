@@ -52,7 +52,8 @@ Route::post('/materials/{materialId}/{courseId}', [MaterialController::class, 'm
 Route::delete('/materials/{materialId}/{courseId}', [MaterialController::class, 'removeMaterialFromCourse']);
 
 //specific routes of trainers
-Route::post('/trainers/{trainerId}/courses', [TrainerController::class, 'modifiedTrainerToCourse']);
+Route::post('/trainers/{trainerId}/{courseId}', [TrainerController::class, 'modifiedCoursesToTrainer']);
+Route::delete('/trainers/{trainerId}/{courseId}', [TrainerController::class, 'removeCoursesToTrainer']);
 
 //basic routes
 Route::apiResource('/category',CategoryController::class);
