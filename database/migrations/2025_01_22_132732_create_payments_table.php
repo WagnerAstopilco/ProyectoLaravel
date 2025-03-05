@@ -17,7 +17,7 @@ return new class extends Migration
             $table->decimal('amount', 10, 2); 
             $table->enum('type',['transferencia','yape','plin','tarjeta']); 
             $table->enum('status', ['pending', 'completed', 'failed']); 
-            $table->timestamp('payment_date');
+            $table->date('payment_date');
             $table->timestamps();
         });
     }
