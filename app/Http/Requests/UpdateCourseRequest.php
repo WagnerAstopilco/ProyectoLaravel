@@ -22,12 +22,15 @@ class UpdateCourseRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name_long' => 'sometimes|required|string|max:255|regex:/^[a-zA-Z0-9_-]+$/|unique:courses,name_long,' . $this->course->id,
+            'name_long' => 'required|string|max:255|regex:/^[a-zA-Z0-9_-]+$/|unique:courses,name_long,' . $this->course->id,
             'name_short' => 'sometimes|required|string|max:100|regex:/^[a-zA-Z0-9_-]+$/|unique:courses,name_short,' . $this->course->id,
             'price' => 'sometimes|required|numeric|min:0|max:999999.99',
             'discount' => 'sometimes|nullable|numeric|min:0|max:100',
             'image' => 'sometimes|nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'description' => 'sometimes|required|string',
+            'start_date' => 'sometimes|required|date',
+            'end_date'   => 'sometimes|required|date|after_or_equal:start_date',  
+            'duration_in_hours' =>'sometimes|required|min:0',
             'store_id' => 'sometimes|required|string|max:255',
             'category_id' => 'sometimes|required|exists:categories,id',
 

@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignId('course_id')->constrained('courses')->onDelete('cascade');
             $table->date('enrollment_date');
             $table->date('end_enrollment_date');
-            $table->enum('status',['activo','suspendido']);
+            $table->enum('status',['activo','inactivo']);
             $table->timestamps();
         });
     }

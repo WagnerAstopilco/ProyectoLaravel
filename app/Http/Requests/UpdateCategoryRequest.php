@@ -24,6 +24,7 @@ class UpdateCategoryRequest extends FormRequest
         return [
             'name' => 'sometimes|required|string|max:255|unique:categories,name,' . $this->category->id,
             'description' => 'sometimes|nullable|string',
+            'color'=>'sometimes|required|string',
         ];
     }
 }

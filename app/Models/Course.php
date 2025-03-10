@@ -18,6 +18,9 @@ class Course extends Model
     'discount',
     'image',
     'description',    
+    'start_date',
+    'end_date',
+    'duration_in_hours',
     'store_id',
     'category_id'
     ];

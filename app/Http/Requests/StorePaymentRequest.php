@@ -27,7 +27,7 @@ class StorePaymentRequest extends FormRequest
             'voucher'=>'required|string|max:255',
             'amount'=>'required|numeric|min:0',
             'type'=>'required|in:transferencia,yape,plin,tarjeta',
-            'status'=>'required|in:pending,completed,failed',
+            'status'=>'required|in:pendiente,completada,fallida',
             'payment_date'=>'required|date'
         ];
     }

@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('materials', function (Blueprint $table) {
             $table->id();
-            $table->enum('grado',['lesson','course']);
+            $table->enum('grado',['leccion','curso']);
             $table->enum('type',['file','link','video','pdf']);
-            $table->text('url');
-            $table->text('content');
+            $table->text('url')->nullable();
+            $table->text('content')->nullable();
             $table->string('title');
             $table->integer('order')->nullable();
             $table->foreignId('lesson_id')->nullable()->constrained('lessons')->onDelete('cascade');

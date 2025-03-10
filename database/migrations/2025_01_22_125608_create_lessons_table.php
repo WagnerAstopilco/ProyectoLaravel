@@ -15,6 +15,7 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->integer('order');
             $table->timestamps();
+            $table->enum('state',['activo','inactivo']);
             $table->foreignId('module_id')->constrained('modules')->onDelete('cascade');
         });
     }

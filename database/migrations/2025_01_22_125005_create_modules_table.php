@@ -14,7 +14,9 @@ return new class extends Migration
             $table->string('name');
             $table->text('description')->nullable();
             $table->integer('order');
-            $table->timestamps();            
+            $table->timestamps();        
+            //TODO
+            //crear tabla adicional para manejar el orden en cada curso    
         });
     }
 

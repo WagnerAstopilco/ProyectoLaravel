@@ -15,6 +15,9 @@ return new class extends Migration
             $table->decimal('price', 10, 2); 
             $table->decimal('discount', 10, 2)->nullable(); 
             $table->string('image',255)->nullable(); 
+            $table->date('start_date');
+            $table->date('end_date');
+            $table->integer('duration_in_hours');
             $table->text('description'); 
             $table->timestamps(); 
             $table->string('store_id');

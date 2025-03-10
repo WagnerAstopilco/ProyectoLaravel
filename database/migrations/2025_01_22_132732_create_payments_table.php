@@ -13,10 +13,10 @@ return new class extends Migration
             $table->id();
             $table->foreignId('enrollment_id')->constrained('enrollments')->onDelete('cascade');
             $table->string('transaction_code'); 
-            $table->string('voucher');  
+            $table->string('voucher');
             $table->decimal('amount', 10, 2); 
             $table->enum('type',['transferencia','yape','plin','tarjeta']); 
-            $table->enum('status', ['pending', 'completed', 'failed']); 
+            $table->enum('status', ['pendiente', 'completada', 'fallida']); 
             $table->date('payment_date');
             $table->timestamps();
         });

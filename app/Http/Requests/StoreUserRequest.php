@@ -29,7 +29,7 @@ class StoreUserRequest extends FormRequest
             'role' => 'required|in:admin,comercial,supervisor,alumno,capacitador',
             'status' => 'required|in:active,inactive',
             'phone_number' => 'nullable|string|max:13',
-            'birthday_date' => 'nullable|date|before:today',
+            'birthday_date' => 'nullable|date|before:' . now()->subYears(18)->format('Y-m-d'),
             'country' => 'nullable|string|max:255',
             'city' => 'nullable|string|max:255',
             'address' => 'nullable|string|max:255',
