@@ -50,8 +50,10 @@ class CourseController extends Controller
      */
     public function update(UpdateCourseRequest $request, Course $course)
     {
+        \Log::info('Datos del request:', $request->toArray());
+        \Log::info('Datos del curso antes de actualizar:', $course->toArray());
         $validatedData = $request->validated();
-
+        
         if ($request->hasFile('image')) {
             if ($course->image) {
                 Storage::disk('public')->delete($course->image);
@@ -61,8 +63,10 @@ class CourseController extends Controller
         } else {
             $validatedData['image'] = $course->image;
         }
-
+        
         $course->update($validatedData);
+        \Log::info('Datos del curso despues de actualizar:', $course->toArray());
+
         return new CourseResource($course);
     }
 

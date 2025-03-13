@@ -22,7 +22,7 @@ class StoreMaterialRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'grado'=> 'required|in:lesson,course',
+            'grado'=> 'required|in:leccion,curso',
             'type'=>'required|in:file,link,video,pdf',
             'url'=>'required|string|max:255',
             'content'=>'required|string',
