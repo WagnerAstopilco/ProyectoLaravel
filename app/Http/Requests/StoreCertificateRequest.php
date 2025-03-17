@@ -27,7 +27,7 @@ class StoreCertificateRequest extends FormRequest
             'issue_date' => 'required|date',
             'start_date'=> 'required|date',
             'end_date' => 'required|date|after_or_equal:start_date',
-            'duration_in_hours' => 'required|numeric|gte:1',
+            'duration_in_hours' => 'required|integer|gte:1',
             'code' => 'required|string|max:255',
         ];
     }

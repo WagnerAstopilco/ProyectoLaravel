@@ -18,6 +18,7 @@ class UserEvaluation extends Model
         'start_time',
         'end_time',
         'score',
+        'availability',
         'status',
     ];
 

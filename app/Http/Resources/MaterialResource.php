@@ -25,7 +25,12 @@ class MaterialResource extends JsonResource
             'lesson_id'=>$this->lesson_id,
 
             'lesson'=>new LessonResource($this->whenLoaded('lesson')),
-            'courses'=>CourseResource::collection($this->whenLoaded('courses')),
+            'courses'=>CourseResource::collection($this->whenLoaded('courses'))->map(function($course){
+                return array_merge(
+                    $course->toArray(),
+                    ['order'=>$course->pivot->order]
+                );
+            }),
         ];
     }
 }

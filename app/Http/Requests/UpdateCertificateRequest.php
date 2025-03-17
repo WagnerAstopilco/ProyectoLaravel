@@ -27,7 +27,7 @@ class UpdateCertificateRequest extends FormRequest
             'issue_date' => 'sometimes|required|date',
             'start_date'=> 'sometimes|required|date',
             'end_date' => 'sometimes|required|date|after_or_equal:start_date',
-            'duration_in_hours' => 'sometimes|required|numeric|gte:1',
+            'duration_in_hours' => 'sometimes|required|integer|gte:1',
             'code' => 'sometimes|required|string|max:255',
         ];
     }

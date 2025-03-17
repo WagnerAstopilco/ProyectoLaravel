@@ -18,7 +18,6 @@ use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\UserAnswerController;
 use App\Http\Controllers\UserEvaluationController;
-use App\Http\Controllers\CourseModuleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -48,8 +47,8 @@ Route::post('/modules/{moduleId}/{lessonId}', [ModuleController::class, 'modifie
 Route::delete('/modules/{moduleId}/{lessonId}', [ModuleController::class, 'removeLessonsToModule']);
 
 //specific routes of material
-Route::post('/materials/{materialId}/{courseId}', [MaterialController::class, 'modifiedMaterialToCourse']);
-Route::delete('/materials/{materialId}/{courseId}', [MaterialController::class, 'removeMaterialFromCourse']);
+Route::post('/materials/{materialId}/courses', [MaterialController::class, 'modifiedMaterialToCourse']);
+Route::delete('/materials/{materialId}/courses', [MaterialController::class, 'removeMaterialFromCourse']);
 
 //specific routes of trainers
 Route::post('/trainers/{trainerId}/{courseId}', [TrainerController::class, 'modifiedCoursesToTrainer']);
@@ -72,5 +71,4 @@ Route::apiResource('/enrollments',EnrollmentController::class);
 Route::apiResource('/payments',PaymentController::class);
 Route::apiResource('/userEvaluations',UserEvaluationController::class);
 Route::apiResource('/userAnswers',UserAnswerController::class);
-Route::apiResource('/coursemodules', CourseModuleController::class);
 

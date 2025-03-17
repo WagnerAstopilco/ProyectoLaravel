@@ -22,8 +22,9 @@ class Module extends Model
         return $this->hasMany(Lesson::class);
     }
 
-    public function courseModules()
+    public function courses()
     {
-        return $this->hasMany(CourseModule::class);
+        return $this->belongsToMany(Course::class,'course_module')
+                    ->withPivot('order');
     }
 }

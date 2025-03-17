@@ -24,7 +24,7 @@ class StoreLessonRequest extends FormRequest
         return [
             'title' => 'required|string|min:5|max:255',
             'description' => 'nullable|string',
-            'order' => 'required|numeric|gte:0',
+            'order' => 'required|integer|gte:1',
             'state'=> 'required|in:activo,inactivo',
             'module_id' => 'required|exists:modules,id',
         ];

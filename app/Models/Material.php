@@ -28,6 +28,7 @@ class Material extends Model
 
     public function courses()
     {
-        return $this->belongsToMany(Course::class, 'course_material');
+        return $this->belongsToMany(Course::class, 'course_material')
+                    ->withPivot('order');
     }
 }

@@ -27,4 +27,11 @@ class StoreOptionRequest extends FormRequest
             'is_correct'=>'required|boolean',
         ];
     }
+    public function attributes(){
+        return [
+            'question_id' => 'pregunta',
+            'option' => 'opción',
+            'is_correct' => 'validez',
+        ];
+    }
 }

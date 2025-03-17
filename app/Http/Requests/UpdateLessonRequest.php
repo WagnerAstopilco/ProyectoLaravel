@@ -24,7 +24,7 @@ class UpdateLessonRequest extends FormRequest
         return [
             'title' => 'sometimes|required|string|min:5|max:255',
             'description' => 'sometimes|nullable|string',
-            'order' => 'sometimes|required|numeric|gte:0',
+            'order' => 'sometimes|required|integer|gte:0',
             'state'=> 'sometimes|required|in:activo,inactivo',
             'module_id' => 'sometimes|required|exists:modules,id',
         ];

@@ -30,12 +30,13 @@ class UpdateCourseRequest extends FormRequest
             'description' => 'sometimes|required|string',
             'start_date' => 'sometimes|required|date',
             'end_date'   => 'sometimes|required|date|after_or_equal:start_date',  
-            'duration_in_hours' =>'sometimes|required|numeric|gte:1',
+            'duration_in_hours' =>'sometimes|required|integer|gte:1',
             'store_id' => 'sometimes|required|string|max:255',
             'category_id' => 'sometimes|required|exists:categories,id',
 
             'module_ids' =>'sometimes|nullable|array',  
             'module_ids.*' =>'sometimes|exists:modules,id',
+            'module_ids.*.order' => 'sometimes|required_with:module_ids|integer|gte:1',
 
             'material_ids'=>'sometimes|nullable|array',
             'material_ids.*'=>'sometimes|exists:materials,id',
@@ -57,7 +58,12 @@ class UpdateCourseRequest extends FormRequest
             'end_date'=>'fecha de fin',
             'duration_in_hours'=>'horas de duración',
             'store_id'=>'tienda',
-            'category_id'=>'categoria',            
+            'category_id'=>'categoria',         
+            
+            'module_ids' => 'modulos',
+            'module_ids.*.order' => 'orden del módulo',
+            'material_ids' => 'materiales',
+            'trainer_ids' => 'capacitadores',
         ];
     }
 }

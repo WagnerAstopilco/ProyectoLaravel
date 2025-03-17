@@ -28,4 +28,12 @@ class UpdateUserAnswerRequest extends FormRequest
             'is_correct' => 'sometimes|required|boolean',
         ];
     }
+    public function attributes(){
+        return[
+            'user_evaluation_id' => 'alumno',
+            'question_id' => 'pregunta',
+            'answer_text' => 'respuesta',
+            'is_correct' => 'validez',
+        ];
+    }
 }

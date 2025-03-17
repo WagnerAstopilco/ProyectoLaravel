@@ -22,7 +22,12 @@ class ModuleResource extends JsonResource
             'updated_at' => $this->updated_at,
 
             'lessons'=>LessonResource::collection($this->whenLoaded('lessons')),
-            'course_modules' => CourseModuleResource::collection($this->whenLoaded('courseModules')),
+            'courses' => CourseResource::collection($this->whenLoaded('courses'))->map(function($course){
+                return array_merge(
+                    $course->toArray(),
+                    ['order'=>$course->pivot->order],
+                );
+            }),
         ];
     }
 }

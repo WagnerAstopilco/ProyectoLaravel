@@ -19,7 +19,7 @@ return new class extends Migration
             $table->date('start_time');
             $table->date('end_time');
             $table->decimal('score',5,2);            
-            // $table->enum('state',['activo','inactivo']);
+            $table->enum('availability',['activo','inactivo']);
             $table->enum('status',['completed','in_progress','failed']);
             $table->timestamps();
         });

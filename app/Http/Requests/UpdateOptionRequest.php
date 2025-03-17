@@ -27,4 +27,11 @@ class UpdateOptionRequest extends FormRequest
             'is_correct'=>'sometimes|required|boolean',
         ];
     }
+    public function attributes(){
+        return [
+            'question_id' => 'pregunta',
+            'option' => 'opción',
+            'is_correct' => 'validez',
+        ];
+    }
 }

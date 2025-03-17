@@ -29,16 +29,18 @@ class StoreCourseRequest extends FormRequest
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'start_date' => 'required|date',
             'end_date'   => 'required|date|after_or_equal:start_date',  
-            'duration_in_hours' =>'required|numeric|gte:1',
+            'duration_in_hours' =>'required|integer|gte:1',
             'description' => 'required|string',
             'store_id' => 'required|string|max:255',
             'category_id' => 'required|exists:categories,id',
 
             'module_ids' => 'nullable|array',  
             'module_ids.*' => 'exists:modules,id',
+            'module_ids.*.order' => 'required_with:module_ids|integer|gte:1',
 
             'material_ids'=>'nullable|array',
             'material_ids.*'=>'exists:materials,id',
+            'material_ids.*.order' => 'required_with:material_ids|integer|gte:1',
 
             'trainer_ids'=>'nullable|array',
             'trainer_ids.*'=>'exists:trainers,id'
@@ -57,7 +59,12 @@ class StoreCourseRequest extends FormRequest
             'end_date'=>'fecha de fin',
             'duration_in_hours'=>'horas de duración',
             'store_id'=>'tienda',
-            'category_id'=>'categoria',            
+            'category_id'=>'categoria', 
+
+            'module_ids' => 'modulos',
+            'module_ids.*.order' => 'orden del módulo',
+            'material_ids' => 'materiales',
+            'trainer_ids' => 'capacitadores',
         ];
     }
 }

@@ -36,9 +36,10 @@ class Course extends Model
         return $this->belongsToMany(Trainer::class, 'course_trainer');
     }
 
-    public function courseModules()
+    public function modules()
     {
-        return $this->hasMany(CourseModule::class);
+        return $this->belongsToMany(Module::class,'course_module')
+                    ->withPivot('order');
     }
 
     public function evaluations()
@@ -57,7 +58,8 @@ class Course extends Model
     }
 
     public function materials(){
-        return $this->belongsToMany(Material::class, 'course_material');
+        return $this->belongsToMany(Material::class, 'course_material')
+                    ->withPivot('order');
     }
 
 }
