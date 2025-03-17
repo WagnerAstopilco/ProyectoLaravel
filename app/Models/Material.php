@@ -12,12 +12,12 @@ class Material extends Model
     protected $table='materials';
 
     protected $fillable = [
-        'grado',
+        'title',
+        'grade',
         'type',
         'url',
         'content',
-        'title',
-        'order',
+        'order_in_lesson',
         'lesson_id'
     ];
 

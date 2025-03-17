@@ -14,6 +14,7 @@ class LessonSession extends Model
     protected $fillable=[
         'lesson_id',
         'session_date',
+        'start_time',
         'type',
         'link',
         'password',

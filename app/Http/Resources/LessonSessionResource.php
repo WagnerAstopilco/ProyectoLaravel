@@ -18,6 +18,7 @@ class LessonSessionResource extends JsonResource
             'id' => $this->id,
             'lesson_id'=>$this->lesson_id,
             'session_date' => $this->session_date,
+            'start_time'=>$this->start_time,
             'type' => $this->type,
             'link' => $this->link,
             'password' => $this->password,

@@ -14,7 +14,8 @@ return new class extends Migration
         Schema::create('lesson_sessions', function (Blueprint $table) {
             $table->id();
             $table->foreignId('lesson_id')->constrained('lessons')->onDelete('cascade');
-            $table->timestamp('session_date');
+            $table->date('session_date');
+            $table->time('start_time');
             $table->enum('type',['zoom','meet']);
             $table->string('link');
             $table->string('password')->nullable();

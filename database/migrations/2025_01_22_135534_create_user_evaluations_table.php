@@ -16,9 +16,10 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->foreignId('evaluation_id')->constrained('evaluations')->onDelete('cascade');
             $table->integer('attempt_number');
-            $table->timestamp('start_time');
-            $table->timestamp('end_time');
-            $table->decimal('score',5,2);
+            $table->date('start_time');
+            $table->date('end_time');
+            $table->decimal('score',5,2);            
+            // $table->enum('state',['activo','inactivo']);
             $table->enum('status',['completed','in_progress','failed']);
             $table->timestamps();
         });

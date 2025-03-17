@@ -32,11 +32,11 @@ class CourseResource extends JsonResource
 
             'category'=>new CategoryResource($this->whenLoaded('category')),
             'trainers' => TrainerResource::collection($this->whenLoaded('trainers')),
-            'modules' => ModuleResource::collection($this->whenLoaded('modules')),
             'evaluations' => EvaluationResource::collection($this->whenLoaded('evaluations')),
             'certificates' => CertificateResource::collection($this->whenLoaded('certificates')),
             'enrollments' => EnrollmentResource::collection($this->whenLoaded('enrollments')),
             'materials' => MaterialResource::collection($this->whenLoaded('materials')),
+            'course_modules' => CourseModuleResource::collection($this->whenLoaded('courseModules')),
         ];
     }
 }

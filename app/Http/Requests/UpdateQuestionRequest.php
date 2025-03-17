@@ -23,9 +23,17 @@ class UpdateQuestionRequest extends FormRequest
     {
         return [
             'evaluation_id' => 'sometimes|required|exists:evaluations,id',
-            'type' => 'sometimes|required|in:multiple_choise,open',
+            'type' => 'required|in:opcion multiple,abierta',
             'question_text' => 'sometimes|required|string',
-            'weight' => 'sometimes|required|numeric|min:1',
+            'weight' => 'sometimes|required|numeric|gte:1',
+        ];
+    }
+    public function atrributes(){
+        return[
+            'evaluation_id'=>'evaluación',
+            'type'=>'tipo',
+            'question_text'=>'enunciado',
+            'weight'=>'peso',
         ];
     }
 }

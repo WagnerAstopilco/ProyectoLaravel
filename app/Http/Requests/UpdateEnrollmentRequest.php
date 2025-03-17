@@ -22,11 +22,20 @@ class UpdateEnrollmentRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'user_id'=>'sometimes|required|exists:users,id',
-            'course_id'=>'sometimes|required|exists:courses,id',
-            'enrollment_date'=>'sometimes|required|date',
-            'end_enrollment_date'=>'sometimes|required|date',
-            'status'=>'sometimes|required|in:activo,suspendido'
+            'user_id'=> 'sometimes|required|exists:users,id',
+            'course_id'=> 'sometimes|required|exists:courses,id',
+            'enrollment_date'=> 'sometimes|required|date',
+            'end_enrollment_date'=> 'sometimes|required|date',
+            'status'=> 'sometimes|required|in:activo,inactivo'
+        ];
+    }
+    public function attributes(){
+        return [
+            'user_id'=>'usuario',
+            'course_id'=>'curso',
+            'enrollment_date'=>'fecha de inicio de matrícula',
+            'end_enrollment_date'=>'fecha de fin de matrícula',
+            'status'=>'estado',
         ];
     }
 }

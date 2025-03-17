@@ -21,6 +21,7 @@ class EvaluationResource extends JsonResource
             'end_date'=>$this->end_date,
             'duration'=>$this->duration,
             'attempts_allowed'=>$this->attempts_allowed,
+            'state'=>$this->state,
             'course_id'=>$this->course_id,
             
             'courses'=>new CourseResource($this->whenLoaded('course')),

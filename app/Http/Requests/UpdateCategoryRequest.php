@@ -22,9 +22,9 @@ class UpdateCategoryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'sometimes|required|string|min:5|max:255|unique:categories,name,' . $this->category->id,
-            'description' => 'sometimes|nullable|string',
-            'color'=>'sometimes|required|string|max:7',
+            'name' => 'sometimes|required|string|min:5|max:255|regex:/^[\pL\pN\s_-]+$/u|unique:categories,name',
+            'description' => 'sometimes|nullable|string|min:5',
+            'color'=> 'sometimes|required|string|max:7',
         ];
     }
 

@@ -25,7 +25,21 @@ class StoreCertificateRequest extends FormRequest
             'user_id' => 'required|integer|exists:users,id',
             'course_id' => 'required|integer|exists:courses,id',
             'issue_date' => 'required|date',
+            'start_date'=> 'required|date',
+            'end_date' => 'required|date|after_or_equal:start_date',
+            'duration_in_hours' => 'required|numeric|gte:1',
             'code' => 'required|string|max:255',
+        ];
+    }
+    public function attributes(){
+        return[
+            'user_id'=>'alumno',
+            'course_id'=>'curso',
+            'issue_date'=>'fecha de emisión',
+            'start_date'=>'fecha de inicio',
+            'end_date'=>'fecha de fin',
+            'duration_in_hours'=>'duración en horas',
+            'code'=>'código',
         ];
     }
 }

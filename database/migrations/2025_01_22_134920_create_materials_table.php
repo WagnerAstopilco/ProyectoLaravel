@@ -13,12 +13,12 @@ return new class extends Migration
     {
         Schema::create('materials', function (Blueprint $table) {
             $table->id();
-            $table->enum('grado',['leccion','curso']);
-            $table->enum('type',['file','link','video','pdf']);
+            $table->string('title');
+            $table->enum('grade',['leccion','curso']);
+            $table->enum('type',['file','link','video','text']);
             $table->text('url')->nullable();
             $table->text('content')->nullable();
-            $table->string('title');
-            $table->integer('order')->nullable();
+            $table->integer('order_in_lesson')->nullable();
             $table->foreignId('lesson_id')->nullable()->constrained('lessons')->onDelete('cascade');
             $table->timestamps();
         });

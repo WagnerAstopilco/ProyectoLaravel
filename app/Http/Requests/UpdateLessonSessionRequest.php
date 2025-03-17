@@ -22,11 +22,22 @@ class UpdateLessonSessionRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'lesson_id'=>'sometimes|required|exists:lessons,id',
-            'session_date'=>'sometimes|required|date',
-            'type'=>'sometimes|required|in:zoom,meet',
-            'link'=>'sometimes|required|string|max:255',
-            'password'=>'sometimes|nullable|string|max:255',
+            'lesson_id' => 'sometimes|required|exists:lessons,id',
+            'session_date' => 'sometimes|required|date',
+            'start_time' => 'sometimes|required|date_format:H:i:s',
+            'type' => 'sometimes|required|in:zoom,meet',
+            'link' => 'sometimes|required|string|max:255',
+            'password' => 'sometimes|nullable|string|max:255',
+        ];
+    }
+    public function attributes(){
+        return[
+            'lesson_id' => 'lección',
+            'session_date' => 'fecha de sesión',
+            'start_time' => 'hora de inicio',
+            'type' => 'tipo',
+            'link' => 'enlace',
+            'password' => 'contraseña',
         ];
     }
 }

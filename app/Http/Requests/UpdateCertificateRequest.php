@@ -25,7 +25,21 @@ class UpdateCertificateRequest extends FormRequest
             'user_id' => 'sometimes|required|integer|exists:users,id',
             'course_id' => 'sometimes|required|integer|exists:courses,id',
             'issue_date' => 'sometimes|required|date',
+            'start_date'=> 'sometimes|required|date',
+            'end_date' => 'sometimes|required|date|after_or_equal:start_date',
+            'duration_in_hours' => 'sometimes|required|numeric|gte:1',
             'code' => 'sometimes|required|string|max:255',
+        ];
+    }
+    public function attributes(){
+        return[
+            'user_id'=>'alumno',
+            'course_id'=>'curso',
+            'issue_date'=>'fecha de emisión',
+            'start_date'=>'fecha de inicio',
+            'end_date'=>'fecha de fin',
+            'duration_in_hours'=>'duración en horas',
+            'code'=>'código',
         ];
     }
 }

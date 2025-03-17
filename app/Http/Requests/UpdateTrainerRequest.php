@@ -29,4 +29,9 @@ class UpdateTrainerRequest extends FormRequest
             'course_ids.*'=>'exists:courses,id'
         ];
     }
+    public function attributes(){
+        return[
+            'certifications'=>'certificaciones',
+        ];
+    }
 }

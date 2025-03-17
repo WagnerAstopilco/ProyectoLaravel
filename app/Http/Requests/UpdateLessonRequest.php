@@ -22,10 +22,20 @@ class UpdateLessonRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title'=>'sometimes|required|string|max:255',
-            'description'=>'sometimes|nullable|string',
-            'order'=>'sometimes|required|integer|min:0',
-            'module_id'=>'sometimes|required|exists:modules,id',
+            'title' => 'sometimes|required|string|min:5|max:255',
+            'description' => 'sometimes|nullable|string',
+            'order' => 'sometimes|required|numeric|gte:0',
+            'state'=> 'sometimes|required|in:activo,inactivo',
+            'module_id' => 'sometimes|required|exists:modules,id',
+        ];
+    }
+    public function attributes(){
+        return [
+            'title'=>'título',
+            'description'=>'descripción',
+            'order'=>'orden',
+            'state'=>'estado',
+            'module_id'=>'modulo',
         ];
     }
 }

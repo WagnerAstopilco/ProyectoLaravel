@@ -22,9 +22,8 @@ class UpdateModuleRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'sometimes|required|string|max:255',
+            'name' => 'sometimes|required|string|min:3|max:255|regex:/^[\pL\pN\s_-]+$/u|unique:modules,name,' . $this->module->id,
             'description' => 'sometimes|nullable|string',
-            'order' => 'sometimes|required|integer|min:0',
 
             'course_id' => 'sometimes|nullable|exists:courses,id',
         ];

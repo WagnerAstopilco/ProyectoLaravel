@@ -18,7 +18,7 @@ use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\UserAnswerController;
 use App\Http\Controllers\UserEvaluationController;
-use App\Http\Resources\CategoryResource;
+use App\Http\Controllers\CourseModuleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -72,4 +72,5 @@ Route::apiResource('/enrollments',EnrollmentController::class);
 Route::apiResource('/payments',PaymentController::class);
 Route::apiResource('/userEvaluations',UserEvaluationController::class);
 Route::apiResource('/userAnswers',UserAnswerController::class);
+Route::apiResource('/coursemodules', CourseModuleController::class);
 

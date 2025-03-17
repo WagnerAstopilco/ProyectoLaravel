@@ -19,6 +19,7 @@ class LessonResource extends JsonResource
             'title' => $this->title,
             'description' => $this->description,
             'order' => $this->order,
+            'state'=>$this->state,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
             'module_id' => $this->module_id,

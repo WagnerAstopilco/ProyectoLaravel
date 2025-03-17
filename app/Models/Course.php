@@ -17,15 +17,15 @@ class Course extends Model
     'price',
     'discount',
     'image',
-    'description',    
     'start_date',
     'end_date',
     'duration_in_hours',
+    'description',    
     'store_id',
     'category_id'
     ];
 
-    //relacion con category
+
     public function category()
     {
         return $this->belongsTo(Category::class);
@@ -36,9 +36,9 @@ class Course extends Model
         return $this->belongsToMany(Trainer::class, 'course_trainer');
     }
 
-    public function modules()
+    public function courseModules()
     {
-        return $this->belongsToMany(Module::class, 'course_module');
+        return $this->hasMany(CourseModule::class);
     }
 
     public function evaluations()

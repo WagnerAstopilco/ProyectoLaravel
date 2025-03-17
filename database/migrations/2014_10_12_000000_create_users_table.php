@@ -20,8 +20,10 @@ return new class extends Migration
             $table->date('birthday_date')->nullable();
             $table->string('country')->nullable();
             $table->string('city')->nullable();
+            $table->enum('address_type',['jiron','calle','pasaje','avenida','prolongacion'])->nullable();
             $table->string('address')->nullable();
-            $table->string('document_type')->nullable();
+            $table->string('address_number')->nullable();
+            $table->enum('document_type',['pasaporte','dni','cedula de identidad'])->nullable();
             $table->string('document_number')->nullable();
             $table->char('gender',1)->nullable();
             $table->string('photo')->nullable();

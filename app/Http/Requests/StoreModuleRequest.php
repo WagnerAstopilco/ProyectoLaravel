@@ -22,10 +22,11 @@ class StoreModuleRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string|max:255',
+            'name' => 'required|string|min:3|max:255|regex:/^[\pL\pN\s_-]+$/u|unique:modules,name',
             'description' => 'nullable|string',
-            'order' => 'required|integer|min:0',
 
+
+            //TODO:MODIFICAR PARA OBTENER UN ARRAY DE CURSOS
             'course_id' => 'nullable|exists:courses,id',  
         ];
     }

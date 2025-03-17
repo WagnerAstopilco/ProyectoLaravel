@@ -15,6 +15,7 @@ class Lesson extends Model
         'title',
         'description',
         'order',
+        'state',
         'module_id'
     ];
 

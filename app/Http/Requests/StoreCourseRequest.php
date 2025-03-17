@@ -24,13 +24,13 @@ class StoreCourseRequest extends FormRequest
         return [
             'name_long' => 'required|string|min:5|max:255|unique:courses,name_long|regex:/^[\pL\pN\s_-]+$/u',
             'name_short' => 'required|string|min:3|max:100|unique:courses,name_short|regex:/^[\pL\pN\s_-]+$/u',
-            'price' => 'required|numeric|min:0|max:999999.99',
+            'price' => 'required|numeric|gte:0|lte:999999.99',
             'discount' => 'nullable|numeric|gte:0|lte:100',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'description' => 'required|string',
             'start_date' => 'required|date',
             'end_date'   => 'required|date|after_or_equal:start_date',  
-            'duration_in_hours' =>'required|numeric|gte:0',
+            'duration_in_hours' =>'required|numeric|gte:1',
+            'description' => 'required|string',
             'store_id' => 'required|string|max:255',
             'category_id' => 'required|exists:categories,id',
 
@@ -42,6 +42,22 @@ class StoreCourseRequest extends FormRequest
 
             'trainer_ids'=>'nullable|array',
             'trainer_ids.*'=>'exists:trainers,id'
+        ];
+    }
+    public function attributes()
+    {
+        return [
+            'name_long'=>'nombre',
+            'name_short'=>'abreviación',
+            'price'=>'precio',
+            'discount'=>'descuento',
+            'image'=>'imagen',
+            'description'=>'descripción',
+            'start_date'=>'fecha de inicio',
+            'end_date'=>'fecha de fin',
+            'duration_in_hours'=>'horas de duración',
+            'store_id'=>'tienda',
+            'category_id'=>'categoria',            
         ];
     }
 }

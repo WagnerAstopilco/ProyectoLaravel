@@ -23,9 +23,17 @@ class StoreQuestionRequest extends FormRequest
     {
         return [
             'evaluation_id' => 'required|exists:evaluations,id',
-            'type' => 'required|in:multiple_choise,open',
+            'type' => 'required|in:opcion multiple,abierta',
             'question_text' => 'required|string',
-            'weight' => 'required|numeric|min:1',
+            'weight' => 'required|numeric|gte:1',
+        ];
+    }
+    public function atrributes(){
+        return[
+            'evaluation_id'=>'evaluación',
+            'type'=>'tipo',
+            'question_text'=>'enunciado',
+            'weight'=>'peso',
         ];
     }
 }

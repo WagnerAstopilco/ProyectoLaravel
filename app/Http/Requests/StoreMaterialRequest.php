@@ -22,15 +22,27 @@ class StoreMaterialRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'grado'=> 'required|in:leccion,curso',
-            'type'=>'required|in:file,link,video,pdf',
-            'url'=>'required|string|max:255',
-            'content'=>'required|string',
-            'title'=>'required|string|max:255',
-            'order'=>'nullable|integer|min:0',
-            'lesson_id'=>'nullable|exists:lessons,id',
+            'title' => 'required|string|min:3|max:255',
+            'grade' => 'required|in:leccion,curso',
+            'type' => 'required|in:file,link,video,text',
+            'url' => 'required|string|min:3|max:255',
+            'content' => 'required|string',
+            'order_in_lesson' => 'nullable|numeric|gte:1',
+            'lesson_id' => 'nullable|exists:lessons,id',
 
-            'course_id'=>'nullable|exists:courses,id'
+            'course_id'=> 'nullable|exists:courses,id'
+        ];
+    }
+    public function attributes(){
+        return[
+            'title'=>'título',
+            'grade'=>'grado',
+            'type'=>'tipo',
+            'url'=>'enlace',
+            'content'=>'contenido',
+            'order_in_lesson'=>'orden',
+            'lesson_id'=>'lencción',
+            'course_id'=>'curso',
         ];
     }
 }

@@ -26,7 +26,16 @@ class StoreEnrollmentRequest extends FormRequest
             'course_id'=>'required|exists:courses,id',
             'enrollment_date'=>'required|date',
             'end_enrollment_date'=>'required|date',
-            'status'=>'required|in:activo,suspendido'
+            'status'=>'required|in:activo,inactivo'
+        ];
+    }
+    public function attributes(){
+        return [
+            'user_id'=>'usuario',
+            'course_id'=>'curso',
+            'enrollment_date'=>'fecha de inicio de matrícula',
+            'end_enrollment_date'=>'fecha de fin de matrícula',
+            'status'=>'estado',
         ];
     }
 }

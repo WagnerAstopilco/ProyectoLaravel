@@ -18,12 +18,11 @@ class ModuleResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'description' => $this->description,
-            'order' => $this->order,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
 
             'lessons'=>LessonResource::collection($this->whenLoaded('lessons')),
-            'courses'=>CourseResource::collection($this->whenLoaded('courses')),
+            'course_modules' => CourseModuleResource::collection($this->whenLoaded('courseModules')),
         ];
     }
 }

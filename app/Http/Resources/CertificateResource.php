@@ -18,8 +18,11 @@ class CertificateResource extends JsonResource
             'id'=> $this->id,
             'user_id'=> $this->user_id,
             'course_id'=> $this->course_id,
-            'code'=> $this->code,
             'issue_date'=>$this->issue_date,
+            'start_date'=>$this->start_date,
+            'end_date'=>$this->end_date,
+            'duration_in_hours'=>$this->duration_in_hours,
+            'code'=> $this->code,
             'created_at'=>$this->created_at,
             'updated_at'=>$this->updated_at,
 

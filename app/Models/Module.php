@@ -14,7 +14,6 @@ class Module extends Model
     protected $fillable=[
         'name',
         'description',
-        'order',
     ];
     
     //relacion course_lesson
@@ -23,8 +22,8 @@ class Module extends Model
         return $this->hasMany(Lesson::class);
     }
 
-    public function courses()
+    public function courseModules()
     {
-        return $this->belongsToMany(Course::class, 'course_module');
+        return $this->hasMany(CourseModule::class);
     }
 }

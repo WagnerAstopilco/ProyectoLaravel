@@ -16,12 +16,12 @@ class MaterialResource extends JsonResource
     {
         return [
             'id'=>$this->id,
-            'grado'=>$this->grado,
+            'title'=>$this->title,
+            'grade'=>$this->grado,
             'type'=>$this->type,
             'url'=>$this->url,
             'content'=>$this->content,
-            'title'=>$this->title,
-            'order'=>$this->order,
+            'order_in_lesson'=>$this->order_in_lesson,
             'lesson_id'=>$this->lesson_id,
 
             'lesson'=>new LessonResource($this->whenLoaded('lesson')),

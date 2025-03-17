@@ -14,10 +14,11 @@ return new class extends Migration
         Schema::create('evaluations', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->timestamp('start_date');
-            $table->timestamp('end_date');
+            $table->date('start_date');
+            $table->date('end_date');
             $table->time('duration');
             $table->integer('attempts_allowed');
+            $table->enum('state',['activo','inactivo']);
             $table->foreignId('course_id')->constrained('courses')->onDelete('cascade');
             $table->timestamps();
         });

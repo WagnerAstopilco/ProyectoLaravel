@@ -22,15 +22,27 @@ class UpdateMaterialRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'grado'=>'sometimes|required|in:lesson,course',
-            'type'=>'sometimes|required|in:file,link,video,pdf',
-            'url'=>'sometimes|required|string|max:255',
-            'content'=>'sometimes|required|string',
-            'title'=>'sometimes|required|string|max:255',
-            'order'=>'sometimes|nullable|integer|min:0',
-            'lesson_id'=>'sometimes|nullable|exists:lessons,id',
+            'title' => 'sometimes|required|string|min:3|max:255',
+            'grade' => 'sometimes|required|in:leccion,curso',
+            'type' => 'sometimes|required|in:file,link,video,text',
+            'url' => 'sometimes|required|string|min:3|max:255',
+            'content' => 'sometimes|required|string',
+            'order_in_lesson' => 'sometimes|nullable|numeric|gte:1',
+            'lesson_id' => 'sometimes|nullable|exists:lessons,id',
 
             'course_id'=>'sometimes|nullable|exists:courses,id'
+        ];
+    }
+    public function attributes(){
+        return[
+            'title'=>'título',
+            'grade'=>'grado',
+            'type'=>'tipo',
+            'url'=>'enlace',
+            'content'=>'contenido',
+            'order_in_lesson'=>'orden',
+            'lesson_id'=>'lencción',
+            'course_id'=>'curso',
         ];
     }
 }

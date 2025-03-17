@@ -23,12 +23,23 @@ class StorePaymentRequest extends FormRequest
     {
         return [
             'enrollment_id'=>'required|exists:enrollments,id',
-            'transaction_code'=>'required|string|max:255',
+            'transaction_code'=>'required|string|min:4|max:255',
             'voucher'=>'required|string|max:255',
-            'amount'=>'required|numeric|min:0',
+            'amount'=>'required|numeric|gte:0',
             'type'=>'required|in:transferencia,yape,plin,tarjeta',
             'status'=>'required|in:pendiente,completada,fallida',
             'payment_date'=>'required|date'
+        ];
+    }
+    public function attributes(){
+        return[
+            'enrollment_id'=>'matrícula',
+            'transaction_code'=>'código de transacción',
+            'voucher'=>'comprobante',
+            'amount'=>'monto',
+            'type'=>'tipo',
+            'status'=>'estado',
+            'payment_date'=>'fecha de pago',
         ];
     }
 }

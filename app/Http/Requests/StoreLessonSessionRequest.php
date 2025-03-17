@@ -24,9 +24,20 @@ class StoreLessonSessionRequest extends FormRequest
         return [
             'lesson_id'=>'required|exists:lessons,id',
             'session_date'=>'required|date',
+            'start_time'=>'required|date_format:H:i:s',
             'type'=>'required|in:zoom,meet',
             'link'=>'required|string|max:255',
             'password'=>'nullable|string|max:255',
+        ];
+    }
+    public function attributes(){
+        return[
+            'lesson_id' => 'lección',
+            'session_date' => 'fecha de sesión',
+            'start_time' => 'hora de inicio',
+            'type' => 'tipo',
+            'link' => 'enlace',
+            'password' => 'contraseña',
         ];
     }
 }
