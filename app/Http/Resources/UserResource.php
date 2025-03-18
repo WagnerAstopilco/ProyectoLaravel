@@ -42,6 +42,13 @@ class UserResource extends JsonResource
             'certificates'=>CertificateResource::collection($this->whenLoaded('certificates')),
             'enrollments'=>EnrollmentResource::collection($this->whenLoaded('enrollments')),
             'userEvaluations'=>UserEvaluationResource::collection($this->whenLoaded('userEvaluations')),
+
+            'lessons' => LessonResource::collection($this->whenLoaded('lessons'))->map(function($lesson){
+                return array_merge(
+                    $lesson->toArray(),
+                    ['state'=>$lesson->pivot->state]
+                );
+            }),
         ];
     }
 }

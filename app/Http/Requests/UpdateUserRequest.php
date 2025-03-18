@@ -41,6 +41,10 @@ class UpdateUserRequest extends FormRequest
             'photo' => 'sometimes|nullable|string|max:255', 
             'speciality' => 'sometimes|nullable|string|max:255',
             'biography' => 'sometimes|nullable|string',
+
+            'lesson_ids' => 'sometimes|nullable|array',  
+            'lesson_ids.*' => 'sometimes|exists:lessons,id',
+            'lesson_ids.*.state' => 'sometimes|required_with:lesson_ids|in:visto,pendiente',
         ];
     }
     public function attributes()

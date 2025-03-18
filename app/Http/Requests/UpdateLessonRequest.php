@@ -27,6 +27,10 @@ class UpdateLessonRequest extends FormRequest
             'order' => 'sometimes|required|integer|gte:0',
             'state'=> 'sometimes|required|in:activo,inactivo',
             'module_id' => 'sometimes|required|exists:modules,id',
+
+            'user_ids' => 'sometimes|nullable|array',  
+            'user_ids.*' => 'sometimes|exists:users,id',
+            'user_ids.*.state' => 'sometimes|required_with:user_ids|in:visto,pendiente',
         ];
     }
     public function attributes(){

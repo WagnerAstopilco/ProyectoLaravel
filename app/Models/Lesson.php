@@ -34,4 +34,9 @@ class Lesson extends Model
     {
         return $this->hasMany(Material::class);
     }
+    public function users()
+    {
+        return $this->belongsToMany(User::class,'lesson_user')
+                    ->withPivot('state');
+    }
 }

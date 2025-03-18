@@ -51,6 +51,11 @@ class User extends Model
     public function userEvaluations(){
         return $this->hasMany(UserEvaluation::class);
     }
+
+    public function lessons(){
+        return $this->belongsToMany(Lesson::class,'lesson_user')
+                    ->withPivot('state');
+    }
 }
             
             

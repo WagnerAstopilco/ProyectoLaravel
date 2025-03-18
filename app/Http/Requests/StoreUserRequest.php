@@ -41,6 +41,11 @@ class StoreUserRequest extends FormRequest
             'photo' => 'nullable|string|max:255', 
             'speciality' => 'nullable|string|max:255',
             'biography' => 'nullable|string',
+
+
+            'lesson_ids' => 'nullable|array',  
+            'lesson_ids.*' => 'exists:lessons,id',
+            'lesson_ids.*.state' => 'required_with:lesson_ids|in:visto,pendiente',
         ];
     }
     public function attributes()

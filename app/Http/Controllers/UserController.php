@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Lesson;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Http\Resources\UserResource;
@@ -16,7 +17,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        return UserResource::collection(User::with(['trainer','certificates','enrollments','userEvaluations'])->get());
+        return UserResource::collection(User::with(['trainer','certificates','enrollments','userEvaluations','lessons'])->get());
     }
 
     /**
@@ -26,13 +27,19 @@ class UserController extends Controller
     {
         $validatedData = $request->validated();
         $validatedData['password'] = Hash::make($request->password);
-       
+
         if ($request->hasFile('photo')) {
             $path = $request->file('photo')->store('users', 'public');
             $validatedData['photo'] = $path;
         }
-    
-        $usuario = User::create($validatedData);    
+
+        $usuario = User::create($validatedData);
+
+        if ($request->has('lessons')) {
+            foreach ($request->input('lessons') as $lessonId => $state) {
+                $usuario->lessons()->attach($lessonId, ['state' => $state]);
+            }
+        }   
         return new UserResource($usuario);
     }
 
@@ -52,14 +59,24 @@ class UserController extends Controller
     {
         
         $validatedData = $request->validated();
-        $validatedData['password'] = Hash::make($request->password);
-       
+        if ($request->has('password')) {
+            $validatedData['password'] = Hash::make($request->password);
+        }
+    
         if ($request->hasFile('photo')) {
             $path = $request->file('photo')->store('users', 'public');
             $validatedData['photo'] = $path;
         }
-
+    
         $user->update($validatedData);
+    
+        if ($request->has('lessons')) {
+            foreach ($request->input('lessons') as $lessonId => $state) {
+                $user->lessons()->syncWithoutDetaching([
+                    $lessonId => ['state' => $state]
+                ]);
+            }
+        }
     
         return new UserResource($user);
     }
