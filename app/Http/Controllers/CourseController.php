@@ -31,10 +31,10 @@ class CourseController extends Controller
             $validatedData['image'] = $path;
         }
 
-        $curso = Course::create($validatedData);
-        return new CourseResource($curso);
-
+        $course = Course::create($validatedData);
+        return new CourseResource($course);
     }
+
 
     /**
      * Display the specified resource.
@@ -63,7 +63,6 @@ class CourseController extends Controller
         }
         
         $course->update($validatedData);
-
         return new CourseResource($course);
     }
 
@@ -75,22 +74,7 @@ class CourseController extends Controller
         $course->delete();
         return response()->json(['message' => 'Curso eliminado correctamente'],200);
     }
-
     
-    public function modifiedModulesToCourse(Request $request, $courseId)
-    {
-        $course = Course::findOrFail($courseId);
-
-        $course->modules()->sync($request->module_ids);
-
-        return response()->json([
-            'message' => 'Módulo asignado al curso correctamente.',
-            'course' => $course,
-            'module' => $course->modules
-        ],200);
-    }
-
-
     public function modifiedMaterialsToCourse(Request $request,$courseId)
     {
         $course=Course::findOrFail($courseId);
@@ -108,12 +92,46 @@ class CourseController extends Controller
     {
         $course=Course::findOrFail($courseId);
 
-        $course->trainers()->sync($request->trainer_ids);
+        $course->trainers()->syncWithoutDetaching($request->trainer_ids);
 
         return response()->json([
             'message'=>'Entrenadores agregados correctamente',
             'course'=>$course,
             'trainers'=>$course->trainers            
         ],200);
+    }
+    public function removeTrainerToCourse($courseId,$trainerId)  
+    {
+        $course = Course::findOrFail($courseId);
+        $course->trainers()->detach($trainerId);
+
+        return response()->json([
+            'message' => 'Entrenador eliminado correctamente',
+            'course' => $course,
+            'trainers' => $course->trainers
+        ], 200);
+    }
+    public function modifiedModulesToCourse(Request $request,$courseId)
+    {
+        $course=Course::findOrFail($courseId);
+
+        $course->modules()->syncWithoutDetaching($request->module_ids);
+
+        return response()->json([
+            'message'=>'modulos agregados correctamente',
+            'course'=>$course,
+            'modules'=>$course->modules            
+        ],200);
+    }
+    public function removeModulesToCourse($courseId,$moduleId)  
+    {
+        $course = Course::findOrFail($courseId);
+        $course->modules()->detach($moduleId);
+
+        return response()->json([
+            'message' => 'Entrenador eliminado correctamente',
+            'course' => $course,
+            'modules' => $course->modules
+        ], 200);
     }
 }

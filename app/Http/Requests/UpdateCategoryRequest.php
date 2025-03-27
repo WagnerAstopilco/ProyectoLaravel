@@ -25,6 +25,9 @@ class UpdateCategoryRequest extends FormRequest
             'name' => 'sometimes|required|string|min:5|max:255|regex:/^[\pL\pN\s_-]+$/u|unique:categories,name',
             'description' => 'sometimes|nullable|string|min:5',
             'color'=> 'sometimes|required|string|max:7',
+
+            'courses_ids' => 'sometimes|nullable|array',  
+            'courses_ids.*' => 'sometimes|exists:courses,id',
         ];
     }
 

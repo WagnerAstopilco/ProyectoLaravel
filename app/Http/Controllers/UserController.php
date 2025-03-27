@@ -26,10 +26,11 @@ class UserController extends Controller
     public function store(StoreUserRequest $request)
     {
         $validatedData = $request->validated();
+
         $validatedData['password'] = Hash::make($request->password);
 
         if ($request->hasFile('photo')) {
-            $path = $request->file('photo')->store('users', 'public');
+            $path = $request->file('photo')->store('image/usuarios', 'public');
             $validatedData['photo'] = $path;
         }
 
@@ -48,7 +49,7 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        $user->photo = asset('storage/' . $user->phto);
+        $user->load(['trainer','certificates','enrollments','userEvaluations','lessons']);
         return new UserResource($user);
     }
 
@@ -59,18 +60,24 @@ class UserController extends Controller
     {
         
         $validatedData = $request->validated();
+
         if ($request->has('password')) {
             $validatedData['password'] = Hash::make($request->password);
         }
     
         if ($request->hasFile('photo')) {
-            $path = $request->file('photo')->store('users', 'public');
+            if ($user->photo) {
+                Storage::disk('public')->delete($user->photo);
+            }
+            $path = $request->file('photo')->store('image/usuarios', 'public');
             $validatedData['photo'] = $path;
+        }else {
+            $validatedData['photo'] = $user->photo;
         }
     
         $user->update($validatedData);
     
-        if ($request->has('lessons')) {
+        if ($request->has('lessons') && is_array($request->input('lessons')) && count($request->input('lessons')) > 0) {
             foreach ($request->input('lessons') as $lessonId => $state) {
                 $user->lessons()->syncWithoutDetaching([
                     $lessonId => ['state' => $state]

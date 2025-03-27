@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Module;
+use App\Models\Course;
 use App\Http\Requests\StoreModuleRequest;
 use App\Http\Requests\UpdateModuleRequest;
 use App\Http\Resources\ModuleResource;
 use Illuminate\Http\Request;
+
 
 class ModuleController extends Controller
 {
@@ -15,16 +17,19 @@ class ModuleController extends Controller
      */
     public function index()
     {
-        $modules=Module::with('lessons','courses')->paginate(20);
+        $modules=Module::with(['lessons','courses'])->get();
         return ModuleResource::collection($modules);
     }
 
     /**
      * Store a newly created resource in storage.
      */
+
     public function store(StoreModuleRequest $request)
     {
-        $module=Module::create($request->validated());
+        $validatedData = $request->validated();
+        $module = Module::create($validatedData);
+        
         return new ModuleResource($module);
     }
 
@@ -33,7 +38,10 @@ class ModuleController extends Controller
      */
     public function show(Module $module)
     {
+        \Log::info($module);
         $module->load('lessons','courses');
+        \Log::info($module->lessons);
+        \Log::info($module->courses);
         return new ModuleResource($module);
     }
 
@@ -42,9 +50,12 @@ class ModuleController extends Controller
      */
     public function update(UpdateModuleRequest $request, Module $module)
     {
-        $module->update($request->validated());
+        $validatedData = $request->validated();
+        
+        $module->update($validatedData);
         return new ModuleResource($module);
     }
+
 
     /**
      * Remove the specified resource from storage.
@@ -55,16 +66,16 @@ class ModuleController extends Controller
         return response()->json(['message'=>'Módulo eliminado correctamente'],200);
     }
 
-    public function modifiedCoursesToModule($moduleId, $courseId)
-    {        
+    public function modifiedCoursesToModule(Request $request, $moduleId)
+    { 
         $module = Module::findOrFail($moduleId);
-
-        $module->courses()->attach($courseId);
-
+        \Log::info($request);
+        $module->courses()->sync($request->courses_ids);
+        \Log::info($module->courses);
         return response()->json([
-            'message' => 'Material asignado al curso correctamente.',
-            'material' => $module,
-            'material' => $module->courses
+            'message' => 'Entrenador asignado al curso correctamente.',
+            'module' => $module,
+            'courses' => $module->courses
         ],200);
     }
     public function removeCoursesToModule($moduleId, $courseId)
@@ -74,7 +85,7 @@ class ModuleController extends Controller
 
         return response()->json([
             'message' => 'Curso eliminado del material correctamente.',
-            'material' => $module,
+            'module' => $module,
             'courses' => $module->courses
         ], 200);
     }
@@ -101,4 +112,15 @@ class ModuleController extends Controller
             'courses' => $module->lessons
         ], 200);
     }
+    public function toArray($request)
+    {
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+            'description' => $this->description,
+            'lesson' => optional($this->lessons->first())->title, // ✅ Previene error si no hay lessons
+            'course' => optional($this->courses->first())->name,  // ✅ Previene error si no hay courses
+        ];
+    }
+
 }

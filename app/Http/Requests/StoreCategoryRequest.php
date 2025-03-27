@@ -25,6 +25,9 @@ class StoreCategoryRequest extends FormRequest
             'name' => 'required|string|min:5|max:255|regex:/^[\pL\pN\s_-]+$/u|unique:categories,name',
             'description' => 'nullable|string|min:5',
             'color'=> 'required|string|max:7',
+
+            'courses_ids' => 'nullable|array',  
+            'courses_ids.*' => 'exists:courses,id',
         ];
     }
 

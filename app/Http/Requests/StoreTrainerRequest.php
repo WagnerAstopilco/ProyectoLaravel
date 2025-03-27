@@ -22,7 +22,7 @@ class StoreTrainerRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'certifications'=>'required|string',
+            'certifications'=>'nullable|string',
             'user_id'=>'required|exists:users,id',
 
             'course_ids'=>'nullable|array',

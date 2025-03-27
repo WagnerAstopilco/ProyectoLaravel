@@ -28,12 +28,16 @@ class LessonResource extends JsonResource
             'sessions'=>LessonSessionResource::collection($this->whenLoaded('sessions')),
             'materials'=>MaterialResource::collection($this->whenLoaded('materials')),
 
-            'users' => UserResource::collection($this->whenLoaded('users'))->map(function($user){
-                return array_merge(
-                    $user->toArray(),
-                    ['state'=>$user->pivot->state]
-                );
-            }),
+            // 'users' => UserResource::collection($this->whenLoaded('users'))->map(function($user){
+            //     return array_merge(
+            //         $user->toArray(),
+            //         ['state'=>$user->pivot->state]
+            //     );
+            // }),
+
+            'users'=>$this->whenLoaded('users') ? collect(UserResource::collection($this->users)->toArray(request()))
+                ->map(function ($user) {
+                    return array_merge($user,['state' => $user['pivot']['state'] ?? null]);}): [],
         ];
     }
 }

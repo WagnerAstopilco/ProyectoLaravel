@@ -24,7 +24,8 @@ class Module extends Model
 
     public function courses()
     {
-        return $this->belongsToMany(Course::class,'course_module')
-                    ->withPivot('order');
+        // return $this->belongsToMany(Course::class,'course_module');
+                    // ->withPivot('order');
+        return $this->hasMany(Curriculum::class);
     }
 }

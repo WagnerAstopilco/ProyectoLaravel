@@ -35,23 +35,12 @@ class CourseResource extends JsonResource
             'evaluations' => EvaluationResource::collection($this->whenLoaded('evaluations')),
             'certificates' => CertificateResource::collection($this->whenLoaded('certificates')),
             'enrollments' => EnrollmentResource::collection($this->whenLoaded('enrollments')),
-            'materials' => MaterialResource::collection($this->whenLoaded('materials'))->map(function($material){
-                return array_merge(
-                    $material->toArray(),
-                    ['order'=>$material->pivot->order]
-                );
-            }),
-            'modules' => ModuleResource::collection($this->whenLoaded('modules'))->map(function($module){
-                return[
-                    'id'=>$module->id,
-                    'name'=>$module->name,
-                    'description'=>$module->description,
-                    'created_at'=>$module->created_at,
-                    'updated_at'=>$module->updated_at,
-                    
-                    'order'=>$module->pivot->order,
-                ];
-            }),
+            'modules' => ModuleResource::collection($this->whenLoaded('modules')),
+            
+            // 'materials'=>$this->whenLoaded('materials') ? collect(MaterialResource::collection($this->materials)->toArray(request()))
+            //     ->map(function ($material) {
+            //         return array_merge($material,['order' => $material['pivot']['order'] ?? null]);}): [],
+
         ];
     }
 }

@@ -25,12 +25,16 @@ class MaterialResource extends JsonResource
             'lesson_id'=>$this->lesson_id,
 
             'lesson'=>new LessonResource($this->whenLoaded('lesson')),
-            'courses'=>CourseResource::collection($this->whenLoaded('courses'))->map(function($course){
-                return array_merge(
-                    $course->toArray(),
-                    ['order'=>$course->pivot->order]
-                );
-            }),
+            // 'courses'=>CourseResource::collection($this->whenLoaded('courses'))->map(function($course){
+            //     return array_merge(
+            //         $course->toArray(),
+            //         ['order'=>$course->pivot->order]
+            //     );
+            // }),
+
+            'courses'=>$this->whenLoaded('courses') ? collect(CourseResource::collection($this->courses)->toArray(request()))
+                ->map(function ($course) {
+                    return array_merge($course,['order' => $course['pivot']['order'] ?? null]);}): [],
         ];
     }
 }

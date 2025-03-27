@@ -25,7 +25,16 @@ class UpdateModuleRequest extends FormRequest
             'name' => 'sometimes|required|string|min:3|max:255|regex:/^[\pL\pN\s_-]+$/u|unique:modules,name,' . $this->module->id,
             'description' => 'sometimes|nullable|string',
 
-            'course_id' => 'sometimes|nullable|exists:courses,id',
+            'course_ids'=>'nullable|array',
+            'course_ids.*'=>'exists:courses,id'
+        ];
+    }
+    public function attributes()
+    {
+        return [
+            'name'=>'nombre',
+            'description'=>'descripción',
+            
         ];
     }
 }

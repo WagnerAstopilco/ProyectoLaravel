@@ -22,7 +22,7 @@ class UpdateTrainerRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'certifications'=>'sometimes|required|string',
+            'certifications'=>'sometimes|nullable|string',
             'user_id'=>'sometimes|required|exists:users,id',
 
             'course_ids'=>'nullable|array',

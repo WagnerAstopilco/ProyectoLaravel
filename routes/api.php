@@ -18,6 +18,7 @@ use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\UserAnswerController;
 use App\Http\Controllers\UserEvaluationController;
+use App\Http\Controllers\CurriculumController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,14 +38,20 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 //specific routes of courses
 Route::post('/courses/{courseId}/modules', [CourseController::class, 'modifiedModulesToCourse']);
+Route::delete('/courses/{courseId}/{module}', [CourseController::class, 'removeModulesToCourse']);
 Route::post('/courses/{courseId}/materials',[CourseController::class, 'modifiedMaterialsToCourse']);
 Route::post('/courses/{courseId}/trainers',[CourseController::class, 'modifiedTrainersToCourse']);
+Route::delete('/courses/{courseId}/{trainerId}', [CourseController::class, 'removeTrainerToCourse']);
 
 //specific routes of modules
-Route::post('/modules/{moduleId}/{courseId}', [ModuleController::class, 'modifiedCoursesToModule']);
+Route::post('/modules/{moduleId}/courses', [ModuleController::class, 'modifiedCoursesToModule']);
 Route::delete('/modules/{moduleId}/{courseId}', [ModuleController::class, 'removeCoursesToModule']);
 Route::post('/modules/{moduleId}/{lessonId}', [ModuleController::class, 'modifiedLessonsToModule']);
 Route::delete('/modules/{moduleId}/{lessonId}', [ModuleController::class, 'removeLessonsToModule']);
+
+// specific routes of coursemodule
+// Route::post('/courses/{courseId}/modules', [CourseModuleController::class, 'store']);
+// Route::delete('/courses/{courseId}/{moduleId}', [CourseModuleController::class, 'destroy']);
 
 //specific routes of material
 Route::post('/materials/{materialId}/courses', [MaterialController::class, 'modifiedMaterialToCourse']);
@@ -54,8 +61,11 @@ Route::delete('/materials/{materialId}/courses', [MaterialController::class, 're
 Route::post('/trainers/{trainerId}/{courseId}', [TrainerController::class, 'modifiedCoursesToTrainer']);
 Route::delete('/trainers/{trainerId}/{courseId}', [TrainerController::class, 'removeCoursesToTrainer']);
 
+//specific routes of categories
+Route::post('/categories/{categoryId}/courses',[CategoryController::class, 'modifiedCoursesToCategory']);
+
 //basic routes
-Route::apiResource('/category',CategoryController::class);
+Route::apiResource('/categories',CategoryController::class);
 Route::apiResource('/courses',CourseController::class);
 Route::apiResource('/modules',ModuleController::class);
 Route::apiResource('/lessons',LessonController::class);
@@ -71,4 +81,5 @@ Route::apiResource('/enrollments',EnrollmentController::class);
 Route::apiResource('/payments',PaymentController::class);
 Route::apiResource('/userEvaluations',UserEvaluationController::class);
 Route::apiResource('/userAnswers',UserAnswerController::class);
+Route::apiResource('/curriculums',CurriculumController::class);
 

@@ -34,9 +34,8 @@ class StoreCourseRequest extends FormRequest
             'store_id' => 'required|string|max:255',
             'category_id' => 'required|exists:categories,id',
 
-            'module_ids' => 'nullable|array',  
-            'module_ids.*' => 'exists:modules,id',
-            'module_ids.*.order' => 'required_with:module_ids|integer|gte:1',
+            'module_ids'=>'nullable|array',
+            'module_ids.*'=>'exists:modules,id',
 
             'material_ids'=>'nullable|array',
             'material_ids.*'=>'exists:materials,id',
@@ -60,11 +59,6 @@ class StoreCourseRequest extends FormRequest
             'duration_in_hours'=>'horas de duración',
             'store_id'=>'tienda',
             'category_id'=>'categoria', 
-
-            'module_ids' => 'modulos',
-            'module_ids.*.order' => 'orden del módulo',
-            'material_ids' => 'materiales',
-            'trainer_ids' => 'capacitadores',
         ];
     }
 }

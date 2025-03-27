@@ -23,7 +23,7 @@ return new class extends Migration
             $table->enum('address_type',['jiron','calle','pasaje','avenida','prolongacion'])->nullable();
             $table->string('address')->nullable();
             $table->string('address_number')->nullable();
-            $table->enum('document_type',['pasaporte','dni','cedula de identidad'])->nullable();
+            $table->enum('document_type',['pasaporte','dni','cedula'])->nullable();
             $table->string('document_number')->nullable();
             $table->char('gender',1)->nullable();
             $table->string('photo')->nullable();

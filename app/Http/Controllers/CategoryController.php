@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Course;
 use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
 use App\Http\Resources\CategoryResource;
+use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
@@ -52,5 +54,23 @@ class CategoryController extends Controller
     {
         $category->delete();
         return response()->json(['message' => 'Categoria eliminada correctamente'], 200);
+    }
+    public function modifiedCoursesToCategory(Request $request, $categoryId)
+    { 
+        $category = Category::findOrFail($categoryId);
+
+        foreach ($request->courses_ids as $courseId) {
+            $course = Course::find($courseId);
+            if ($course) {
+                $course->category_id = $categoryId;
+                $course->save(); 
+            }
+        }
+
+        return response()->json([
+            'message' => 'Cursos asignados a la categoría correctamente.',
+            'category' => $category,
+            'cursos' => $category->courses
+        ], 200);
     }
 }

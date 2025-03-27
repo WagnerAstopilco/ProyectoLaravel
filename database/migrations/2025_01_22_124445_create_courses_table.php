@@ -14,7 +14,7 @@ return new class extends Migration
             $table->string('name_short'); 
             $table->decimal('price', 10, 2); 
             $table->decimal('discount', 10, 2)->nullable(); 
-            $table->string('image',255)->nullable(); 
+            $table->string('image')->nullable(); 
             $table->date('start_date');
             $table->date('end_date');
             $table->integer('duration_in_hours');
