@@ -35,7 +35,7 @@ class CourseResource extends JsonResource
             'evaluations' => EvaluationResource::collection($this->whenLoaded('evaluations')),
             'certificates' => CertificateResource::collection($this->whenLoaded('certificates')),
             'enrollments' => EnrollmentResource::collection($this->whenLoaded('enrollments')),
-            'modules' => ModuleResource::collection($this->whenLoaded('modules')),
+            'modules' => CourseModuleResource::collection($this->whenLoaded('modules')),
             
             // 'materials'=>$this->whenLoaded('materials') ? collect(MaterialResource::collection($this->materials)->toArray(request()))
             //     ->map(function ($material) {

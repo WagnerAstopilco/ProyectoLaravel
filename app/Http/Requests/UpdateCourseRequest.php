@@ -34,9 +34,6 @@ class UpdateCourseRequest extends FormRequest
             'store_id' => 'sometimes|required|string|max:255',
             'category_id' => 'sometimes|required|exists:categories,id',
 
-            'module_ids'=>'sometimes|nullable|array',
-            'module_ids.*'=>'sometimes|exists:modules,id',
-
             'material_ids'=>'sometimes|nullable|array',
             'material_ids.*'=>'sometimes|exists:materials,id',
 
@@ -57,8 +54,7 @@ class UpdateCourseRequest extends FormRequest
             'end_date'=>'fecha de fin',
             'duration_in_hours'=>'horas de duración',
             'store_id'=>'tienda',
-            'category_id'=>'categoria',         
-        
+            'category_id'=>'categoria',                 
         ];
     }
 }

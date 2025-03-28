@@ -111,27 +111,4 @@ class CourseController extends Controller
             'trainers' => $course->trainers
         ], 200);
     }
-    public function modifiedModulesToCourse(Request $request,$courseId)
-    {
-        $course=Course::findOrFail($courseId);
-
-        $course->modules()->syncWithoutDetaching($request->module_ids);
-
-        return response()->json([
-            'message'=>'modulos agregados correctamente',
-            'course'=>$course,
-            'modules'=>$course->modules            
-        ],200);
-    }
-    public function removeModulesToCourse($courseId,$moduleId)  
-    {
-        $course = Course::findOrFail($courseId);
-        $course->modules()->detach($moduleId);
-
-        return response()->json([
-            'message' => 'Entrenador eliminado correctamente',
-            'course' => $course,
-            'modules' => $course->modules
-        ], 200);
-    }
 }

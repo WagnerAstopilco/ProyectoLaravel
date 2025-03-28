@@ -22,7 +22,7 @@ class ModuleResource extends JsonResource
             'updated_at' => $this->updated_at,
 
             'lessons'=>LessonResource::collection($this->whenLoaded('lessons')),
-            'courses' => CourseResource::collection($this->whenLoaded('courses')),
+            'courses' => CourseModuleResource::collection($this->whenLoaded('courses')),
         ];
     }
 }

@@ -17,8 +17,7 @@ class ModuleController extends Controller
      */
     public function index()
     {
-        $modules=Module::with(['lessons','courses'])->get();
-        return ModuleResource::collection($modules);
+        return ModuleResource::collection(Module::with('lessons','courses')->get());
     }
 
     /**
@@ -38,10 +37,7 @@ class ModuleController extends Controller
      */
     public function show(Module $module)
     {
-        \Log::info($module);
         $module->load('lessons','courses');
-        \Log::info($module->lessons);
-        \Log::info($module->courses);
         return new ModuleResource($module);
     }
 
@@ -66,29 +62,6 @@ class ModuleController extends Controller
         return response()->json(['message'=>'Módulo eliminado correctamente'],200);
     }
 
-    public function modifiedCoursesToModule(Request $request, $moduleId)
-    { 
-        $module = Module::findOrFail($moduleId);
-        \Log::info($request);
-        $module->courses()->sync($request->courses_ids);
-        \Log::info($module->courses);
-        return response()->json([
-            'message' => 'Entrenador asignado al curso correctamente.',
-            'module' => $module,
-            'courses' => $module->courses
-        ],200);
-    }
-    public function removeCoursesToModule($moduleId, $courseId)
-    {
-        $module = Module::findOrFail($moduleId);
-        $module->courses()->detach($courseId);
-
-        return response()->json([
-            'message' => 'Curso eliminado del material correctamente.',
-            'module' => $module,
-            'courses' => $module->courses
-        ], 200);
-    }
     public function modifiedLessonToModule($moduleId, $lessonId)
     {        
         $module = Module::findOrFail($moduleId);
@@ -112,15 +85,4 @@ class ModuleController extends Controller
             'courses' => $module->lessons
         ], 200);
     }
-    public function toArray($request)
-    {
-        return [
-            'id' => $this->id,
-            'name' => $this->name,
-            'description' => $this->description,
-            'lesson' => optional($this->lessons->first())->title, // ✅ Previene error si no hay lessons
-            'course' => optional($this->courses->first())->name,  // ✅ Previene error si no hay courses
-        ];
-    }
-
 }

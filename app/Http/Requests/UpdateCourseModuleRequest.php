@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreModuleRequest extends FormRequest
+class UpdateCourseModuleRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,15 +22,9 @@ class StoreModuleRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string|min:3|max:255|regex:/^[\pL\pN\s_-]+$/u|unique:modules,name',
-            'description' => 'nullable|string'            
-        ];
-    }
-    public function attributes()
-    {
-        return [
-            'name'=>'nombre',
-            'description'=>'descripción',
+            'order' => 'sometimes|required|integer|gte:1',
+            'course_id' => 'sometimes|required|integer|exists:courses,id',
+            'module_id' => 'sometimes|required|integer|exists:modules,id',
         ];
     }
 }
