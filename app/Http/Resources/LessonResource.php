@@ -35,9 +35,9 @@ class LessonResource extends JsonResource
             //     );
             // }),
 
-            'users'=>$this->whenLoaded('users') ? collect(UserResource::collection($this->users)->toArray(request()))
-                ->map(function ($user) {
-                    return array_merge($user,['state' => $user['pivot']['state'] ?? null]);}): [],
+            // 'users'=>$this->whenLoaded('users') ? collect(UserResource::collection($this->users)->toArray(request()))
+            //     ->map(function ($user) {
+            //         return array_merge($user,['state' => $user['pivot']['state'] ?? null]);}): [],
         ];
     }
 }

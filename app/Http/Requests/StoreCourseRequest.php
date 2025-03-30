@@ -33,10 +33,7 @@ class StoreCourseRequest extends FormRequest
             'description' => 'required|string',
             'store_id' => 'required|string|max:255',
             'category_id' => 'required|exists:categories,id',
-
-            'material_ids'=>'nullable|array',
-            'material_ids.*'=>'exists:materials,id',
-
+            
             'trainer_ids'=>'nullable|array',
             'trainer_ids.*'=>'exists:trainers,id'
         ];

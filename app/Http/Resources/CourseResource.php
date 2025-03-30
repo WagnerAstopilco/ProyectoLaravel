@@ -36,11 +36,7 @@ class CourseResource extends JsonResource
             'certificates' => CertificateResource::collection($this->whenLoaded('certificates')),
             'enrollments' => EnrollmentResource::collection($this->whenLoaded('enrollments')),
             'modules' => CourseModuleResource::collection($this->whenLoaded('modules')),
-            
-            // 'materials'=>$this->whenLoaded('materials') ? collect(MaterialResource::collection($this->materials)->toArray(request()))
-            //     ->map(function ($material) {
-            //         return array_merge($material,['order' => $material['pivot']['order'] ?? null]);}): [],
-
+            'materials' => CourseMaterialResource::collection($this->whenLoaded('materials')),
         ];
     }
 }

@@ -29,10 +29,6 @@ class StoreMaterialRequest extends FormRequest
             'content' => 'required|string',
             'order_in_lesson' => 'nullable|integer|gte:1',
             'lesson_id' => 'nullable|exists:lessons,id',
-
-            'course_ids' => 'nullable|array',  
-            'course_ids.*' => 'exists:courses,id',
-            'course_ids.*.order' => 'required_with:course_ids|integer|gte:1',
         ];
     }
     public function attributes(){

@@ -5,16 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class CourseModule extends Model
+class CourseMaterial extends Model
 {
     use HasFactory;
 
-    protected $table='course_module';
+    protected $table='course_material';
 
     protected $fillable=[
         'order',
+        'material_id',
         'course_id',
-        'module_id',
     ];
 
     public function course()
@@ -22,8 +22,8 @@ class CourseModule extends Model
         return $this->belongsTo(Course::class);
     }
 
-    public function module()
+    public function material()
     {
-        return $this->belongsTo(Module::class);
+        return $this->belongsTo(Material::class);
     }
 }

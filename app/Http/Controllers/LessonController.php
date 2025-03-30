@@ -47,13 +47,6 @@ class LessonController extends Controller
     public function update(UpdateLessonRequest $request, Lesson $lesson)
     {
         $lesson->update($request->validated());
-        if ($request->has('users')) {
-            foreach ($request->input('users') as $userId => $state) {
-                $lesson->users()->syncWithoutDetaching([
-                    $userId => ['state' => $state]
-                ]);
-            }
-        }
         return new LessonResource($lesson);
     }
 

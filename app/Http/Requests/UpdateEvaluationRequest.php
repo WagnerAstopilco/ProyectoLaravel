@@ -25,8 +25,8 @@ class UpdateEvaluationRequest extends FormRequest
             'title'=> 'sometimes|required|string|min:2|max:255',
             'start_date'=> 'sometimes|required|date',
             'end_date'=> 'sometimes|required|date|after_or_equal:start_date',
-            'duration'=> 'sometimes|required|date_format:H:i:s',
-            'attempts_allowed'=> 'sometimes|required|number|min:1',
+            'duration'=> 'sometimes|required|date_format:H:i',
+            'attempts_allowed'=> 'sometimes|required|integer|min:1',
             'course_id'=> 'sometimes|required|exists:courses,id'
         ];
     }

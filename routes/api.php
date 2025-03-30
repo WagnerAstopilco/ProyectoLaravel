@@ -19,6 +19,7 @@ use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\UserAnswerController;
 use App\Http\Controllers\UserEvaluationController;
 use App\Http\Controllers\CourseModuleController;
+use App\Http\Controllers\CourseMaterialController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,7 +38,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 //specific routes of courses
-Route::post('/courses/{courseId}/materials',[CourseController::class, 'modifiedMaterialsToCourse']);
 Route::post('/courses/{courseId}/trainers',[CourseController::class, 'modifiedTrainersToCourse']);
 Route::delete('/courses/{courseId}/{trainerId}', [CourseController::class, 'removeTrainerToCourse']);
 
@@ -48,9 +48,8 @@ Route::delete('/modules/{moduleId}/{lessonId}', [ModuleController::class, 'remov
 // specific routes of coursemodule
 Route::delete('/courseModules/{moduleId}/{courseId}', [CourseModuleController::class, 'removeCourseFromModule']);
 
-//specific routes of material
-Route::post('/materials/{materialId}/courses', [MaterialController::class, 'modifiedMaterialToCourse']);
-Route::delete('/materials/{materialId}/courses', [MaterialController::class, 'removeMaterialFromCourse']);
+//specific routes of coursematerial
+Route::delete('/courseMaterials/{materialId}/{courseId}', [CourseMaterialController::class, 'removeCourseFromMaterial']);
 
 //specific routes of trainers
 Route::post('/trainers/{trainerId}/{courseId}', [TrainerController::class, 'modifiedCoursesToTrainer']);
@@ -77,4 +76,5 @@ Route::apiResource('/payments',PaymentController::class);
 Route::apiResource('/userEvaluations',UserEvaluationController::class);
 Route::apiResource('/userAnswers',UserAnswerController::class);
 Route::apiResource('/courseModules',CourseModuleController::class);
+Route::apiResource('/courseMaterials',CourseMaterialController::class);
 

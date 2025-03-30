@@ -55,28 +55,28 @@ class MaterialController extends Controller
         return response()->json(['message'=>'Material eliminado correctamente'],200);
     }
 
-    public function modifiedMaterialToCourse($materialId,$courseId)
-    { 
-        $material = Material::findOrFail($materialId);
+    // public function modifiedMaterialToCourse($materialId,$courseId)
+    // { 
+    //     $material = Material::findOrFail($materialId);
 
-        $material->courses()->attach($courseId);
+    //     $material->courses()->attach($courseId);
 
-        return response()->json([
-            'message' => 'Material asignado al curso correctamente.',
-            'material' => $material,
-            'material' => $material->courses
-        ],200);
-    }
-    public function removeMaterialFromCourse($materialId, $courseId)
-    {
-        $material = Material::findOrFail($materialId);
-        $material->courses()->detach($courseId);
+    //     return response()->json([
+    //         'message' => 'Material asignado al curso correctamente.',
+    //         'material' => $material,
+    //         'material' => $material->courses
+    //     ],200);
+    // }
+    // public function removeMaterialFromCourse($materialId, $courseId)
+    // {
+    //     $material = Material::findOrFail($materialId);
+    //     $material->courses()->detach($courseId);
 
-        return response()->json([
-            'message' => 'Curso eliminado del material correctamente.',
-            'material' => $material,
-            'courses' => $material->courses
-        ], 200);
-    }
+    //     return response()->json([
+    //         'message' => 'Curso eliminado del material correctamente.',
+    //         'material' => $material,
+    //         'courses' => $material->courses
+    //     ], 200);
+    // }
 
 }

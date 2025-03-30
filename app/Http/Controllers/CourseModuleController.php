@@ -68,7 +68,7 @@ class CourseModuleController extends Controller
         $courseModule->delete();
 
         return response()->json([
-            'message' => 'modulo eliminado del curso'
+            'message' => 'módulo eliminado del curso'
         ], 200);
     }
 }

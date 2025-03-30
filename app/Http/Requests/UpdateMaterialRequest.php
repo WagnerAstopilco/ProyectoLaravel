@@ -29,8 +29,6 @@ class UpdateMaterialRequest extends FormRequest
             'content' => 'sometimes|required|string',
             'order_in_lesson' => 'sometimes|nullable|integer|gte:1',
             'lesson_id' => 'sometimes|nullable|exists:lessons,id',
-
-            'course_id'=>'sometimes|nullable|exists:courses,id'
         ];
     }
     public function attributes(){

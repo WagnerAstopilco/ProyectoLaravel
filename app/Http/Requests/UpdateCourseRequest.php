@@ -33,10 +33,7 @@ class UpdateCourseRequest extends FormRequest
             'duration_in_hours' =>'sometimes|required|integer|gte:1',
             'store_id' => 'sometimes|required|string|max:255',
             'category_id' => 'sometimes|required|exists:categories,id',
-
-            'material_ids'=>'sometimes|nullable|array',
-            'material_ids.*'=>'sometimes|exists:materials,id',
-
+            
             'trainer_ids'=>'sometimes|nullable|array',
             'trainer_ids.*'=>'sometimes|exists:trainers,id'
         ];
