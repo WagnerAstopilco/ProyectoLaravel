@@ -25,8 +25,9 @@ class UpdateMaterialRequest extends FormRequest
             'title' => 'sometimes|required|string|min:3|max:255',
             'grade' => 'sometimes|required|in:leccion,curso',
             'type' => 'sometimes|required|in:file,link,video,text',
-            'url' => 'sometimes|required|string|min:3|max:255',
-            'content' => 'sometimes|required|string',
+            'file'=>'sometimes|nullable|file|mimes:pdf,doc,docx,,xls,xlsx,csv,ppt,pptx,txt,zip',
+            'url' => 'sometimes|nullable|string|min:3|max:255',
+            'content' => 'sometimes|nullable|string',
             'order_in_lesson' => 'sometimes|nullable|integer|gte:1',
             'lesson_id' => 'sometimes|nullable|exists:lessons,id',
         ];

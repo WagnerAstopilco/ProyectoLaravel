@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('title');
             $table->enum('grade',['leccion','curso']);
             $table->enum('type',['file','link','video','text']);
+            $table->string('file')->nullable();
             $table->text('url')->nullable();
             $table->text('content')->nullable();
             $table->integer('order_in_lesson')->nullable();

@@ -24,7 +24,14 @@ class MaterialController extends Controller
      */
     public function store(StoreMaterialRequest $request)
     {
-        $material=Material::create($request->validated());
+        $validatedData = $request->validated();
+
+        if ($request->hasFile('file')) {
+            $path = $request->file('file')->store('materiales', 'public');
+            $validatedData['file'] = $path;
+        }
+
+        $material=Material::create($validatedData);
         return new MaterialResource($material);
     }
 
@@ -42,7 +49,22 @@ class MaterialController extends Controller
      */
     public function update(UpdateMaterialRequest $request, Material $material)
     {
-        $material->update($request->validated());
+        $validatedData = $request->validated();
+        
+        if ($request->hasFile('file')) {
+            if ($material->file) {
+                Storage::disk('public')->delete($material->file);
+            }
+            $path = $request->file('file')->store('materiales', 'public');
+            $validatedData['file'] = $path;
+        } else {
+            $validatedData['file'] = $material->file;
+        }
+        if ($request->has('_delete_file')) {
+            Storage::disk('public')->delete($material->file); 
+            $material->file = null; 
+        }
+        $material->update($validatedData);
         return new MaterialResource($material);
     }
 

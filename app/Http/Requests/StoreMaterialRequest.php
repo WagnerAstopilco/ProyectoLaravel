@@ -25,8 +25,9 @@ class StoreMaterialRequest extends FormRequest
             'title' => 'required|string|min:3|max:255',
             'grade' => 'required|in:leccion,curso',
             'type' => 'required|in:file,link,video,text',
-            'url' => 'required|string|min:3|max:255',
-            'content' => 'required|string',
+            'file'=>'nullable|file|mimes:pdf,doc,docx,,xls,xlsx,csv,ppt,pptx,txt,zip',
+            'url' => 'nullable|string|min:3|max:255',
+            'content' => 'nullable|string',
             'order_in_lesson' => 'nullable|integer|gte:1',
             'lesson_id' => 'nullable|exists:lessons,id',
         ];

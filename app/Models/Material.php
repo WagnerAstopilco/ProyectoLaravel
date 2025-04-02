@@ -15,6 +15,7 @@ class Material extends Model
         'title',
         'grade',
         'type',
+        'file',
         'url',
         'content',
         'order_in_lesson',
