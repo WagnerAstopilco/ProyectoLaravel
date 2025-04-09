@@ -7,6 +7,9 @@ use App\Http\Requests\StoreMaterialRequest;
 use App\Http\Requests\UpdateMaterialRequest;
 use App\Http\Resources\MaterialResource;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
+
 
 class MaterialController extends Controller
 {
@@ -27,11 +30,14 @@ class MaterialController extends Controller
         $validatedData = $request->validated();
 
         if ($request->hasFile('file')) {
-            $path = $request->file('file')->store('materiales', 'public');
-            $validatedData['file'] = $path;
+            $file = $request->file('file');
+            $originalFileName = $file->getClientOriginalName();
+            $filename = Str::uuid();
+            $fileCompleteName = $filename . '__' . $originalFileName;
+            $path = $file->storeAs('materiales', $fileCompleteName, 'public');
+            $validatedData['file'] = $path; 
         }
-
-        $material=Material::create($validatedData);
+        $material = Material::create($validatedData);
         return new MaterialResource($material);
     }
 
@@ -76,29 +82,5 @@ class MaterialController extends Controller
         $material->delete();
         return response()->json(['message'=>'Material eliminado correctamente'],200);
     }
-
-    // public function modifiedMaterialToCourse($materialId,$courseId)
-    // { 
-    //     $material = Material::findOrFail($materialId);
-
-    //     $material->courses()->attach($courseId);
-
-    //     return response()->json([
-    //         'message' => 'Material asignado al curso correctamente.',
-    //         'material' => $material,
-    //         'material' => $material->courses
-    //     ],200);
-    // }
-    // public function removeMaterialFromCourse($materialId, $courseId)
-    // {
-    //     $material = Material::findOrFail($materialId);
-    //     $material->courses()->detach($courseId);
-
-    //     return response()->json([
-    //         'message' => 'Curso eliminado del material correctamente.',
-    //         'material' => $material,
-    //         'courses' => $material->courses
-    //     ], 200);
-    // }
 
 }

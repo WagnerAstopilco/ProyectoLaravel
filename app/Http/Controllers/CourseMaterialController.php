@@ -62,7 +62,7 @@ class CourseMaterialController extends Controller
                                 ->where('course_id', $courseId)
                                 ->first();
         if (!$courseMaterial) {
-            return response()->json([
+            return response()->json([ 
                 'message' => 'Curso no encontrado en el material'
             ], 404);
         }
