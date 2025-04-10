@@ -20,6 +20,7 @@ use App\Http\Controllers\UserAnswerController;
 use App\Http\Controllers\UserEvaluationController;
 use App\Http\Controllers\CourseModuleController;
 use App\Http\Controllers\CourseMaterialController;
+use App\Http\Controllers\LessonUserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -77,4 +78,5 @@ Route::apiResource('/userEvaluations',UserEvaluationController::class);
 Route::apiResource('/userAnswers',UserAnswerController::class);
 Route::apiResource('/courseModules',CourseModuleController::class);
 Route::apiResource('/courseMaterials',CourseMaterialController::class);
+Route::apiResource('/lessonUsers',LessonUserController::class);
 

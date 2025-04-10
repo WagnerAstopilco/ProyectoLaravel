@@ -16,6 +16,7 @@ return new class extends Migration
             $table->enum('state',['visto','pendiente']);
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->foreignId('lesson_id')->constrained('lessons')->onDelete('cascade');
+            $table->timestamps();
         });
     }
 

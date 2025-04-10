@@ -36,7 +36,6 @@ class Lesson extends Model
     }
     public function users()
     {
-        return $this->belongsToMany(User::class,'lesson_user')
-                    ->withPivot('state');
+        return $this->hasMany(LessonUser::class);
     }
 }

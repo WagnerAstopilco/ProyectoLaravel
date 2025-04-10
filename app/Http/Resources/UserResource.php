@@ -43,9 +43,7 @@ class UserResource extends JsonResource
             'enrollments'=>EnrollmentResource::collection($this->whenLoaded('enrollments')),
             'userEvaluations'=>UserEvaluationResource::collection($this->whenLoaded('userEvaluations')),
 
-            'lessons' => $this->whenLoaded('lessons') ? collect(LessonResource::collection($this->lessons)->toArray(request()))
-                ->map(function ($lesson) {
-                    return array_merge($lesson,['state' => $lesson['pivot']['state'] ?? null]);}): [],
+            'lessons'=>LessonUserResource::collection($this->whenLoaded('lessons')),
             
         ];
     }
