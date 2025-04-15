@@ -24,7 +24,7 @@ class StoreLessonSessionRequest extends FormRequest
         return [
             'lesson_id'=>'required|exists:lessons,id',
             'session_date'=>'required|date',
-            'start_time'=>'required|date_format:H:i:s',
+            'start_time'=>'required|date_format:H:i',
             'type'=>'required|in:zoom,meet',
             'link'=>'required|string|max:255',
             'password'=>'nullable|string|max:255',

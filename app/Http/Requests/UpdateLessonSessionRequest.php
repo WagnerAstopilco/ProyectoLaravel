@@ -24,7 +24,7 @@ class UpdateLessonSessionRequest extends FormRequest
         return [
             'lesson_id' => 'sometimes|required|exists:lessons,id',
             'session_date' => 'sometimes|required|date',
-            'start_time' => 'sometimes|required|date_format:H:i:s',
+            'start_time' => 'sometimes|required|date_format:H:i',
             'type' => 'sometimes|required|in:zoom,meet',
             'link' => 'sometimes|required|string|max:255',
             'password' => 'sometimes|nullable|string|max:255',

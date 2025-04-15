@@ -24,7 +24,7 @@ class EvaluationResource extends JsonResource
             'state'=>$this->state,
             'course_id'=>$this->course_id,
             
-            'courses'=>new CourseResource($this->whenLoaded('course')),
+            'course'=>new CourseResource($this->whenLoaded('course')),
             'questions'=>QuestionResource::collection($this->whenLoaded('questions')),
             'user_evaluations'=>UserEvaluationResource::collection($this->whenLoaded('userEvaluations')),
         ];

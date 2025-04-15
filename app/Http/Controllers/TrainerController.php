@@ -59,27 +59,27 @@ class TrainerController extends Controller
     { 
         $trainer = Trainer::findOrFail($trainerId);
 
-        $trainer->courses()->sync($request->course_ids);
+        $trainer->courses()->syncWithoutDetaching($request->course_ids);
 
         return response()->json([
-            'message' => 'Entrenador asignado al curso correctamente.',
-            'trainer' => $trainer,
-            'trainer' => $trainer->courses
-        ],200);
-    }
-
-    public function modifiedCoursesToTrainer($trainerId, $courseId)
-    {        
-        $trainer = Trainer::findOrFail($trainerId);
-
-        $trainer->courses()->attach($courseId);
-
-        return response()->json([
-            'message' => 'Material asignado al curso correctamente.',
+            'message' => 'cursos asignados correctamente.',
             'trainer' => $trainer,
             'courses' => $trainer->courses
         ],200);
     }
+
+    // public function modifiedCoursesToTrainer(Request $request,$trainerId)
+    // {        
+    //     $trainer = Trainer::findOrFail($trainerId);
+
+    //     $trainer->courses()->attach($courseId);
+
+    //     return response()->json([
+    //         'message' => 'Material asignado al curso correctamente.',
+    //         'trainer' => $trainer,
+    //         'courses' => $trainer->courses
+    //     ],200);
+    // }
     public function removeCoursesToTrainer($trainerId, $courseId)
     {
         $trainer = Trainer::findOrFail($trainerId);
