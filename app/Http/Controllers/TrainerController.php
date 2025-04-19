@@ -68,18 +68,6 @@ class TrainerController extends Controller
         ],200);
     }
 
-    // public function modifiedCoursesToTrainer(Request $request,$trainerId)
-    // {        
-    //     $trainer = Trainer::findOrFail($trainerId);
-
-    //     $trainer->courses()->attach($courseId);
-
-    //     return response()->json([
-    //         'message' => 'Material asignado al curso correctamente.',
-    //         'trainer' => $trainer,
-    //         'courses' => $trainer->courses
-    //     ],200);
-    // }
     public function removeCoursesToTrainer($trainerId, $courseId)
     {
         $trainer = Trainer::findOrFail($trainerId);

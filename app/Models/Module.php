@@ -16,7 +16,6 @@ class Module extends Model
         'description',
     ];
     
-    //relacion course_lesson
     public function lessons()
     {
         return $this->hasMany(Lesson::class);

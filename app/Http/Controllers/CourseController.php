@@ -74,19 +74,6 @@ class CourseController extends Controller
         $course->delete();
         return response()->json(['message' => 'Curso eliminado correctamente'],200);
     }
-    
-    // public function modifiedMaterialsToCourse(Request $request,$courseId)
-    // {
-    //     $course=Course::findOrFail($courseId);
-
-    //     $course->materials()->sync($request->material_ids);
-
-    //     return response()->json([
-    //         'message'=>'Materiales agregados correctamente',
-    //         'course'=>$course,
-    //         'materials'=>$course->materials
-    //     ],200);
-    // }
 
     public function modifiedTrainersToCourse(Request $request,$courseId)
     {

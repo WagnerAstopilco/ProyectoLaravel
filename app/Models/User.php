@@ -2,15 +2,17 @@
 
 namespace App\Models;
 
+use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 
-class User extends Model
+class User extends Authenticatable
 {
-    use HasFactory;
+    use HasApiTokens, HasFactory, Notifiable;
 
-    protected $table='users';
-    
+    protected $table = 'users';
+
     protected $fillable = [
         'names',
         'last_names',
@@ -33,6 +35,11 @@ class User extends Model
         'biography',
     ];
 
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
+
     public function trainer()
     {
         return $this->hasOne(Trainer::class);
@@ -47,12 +54,14 @@ class User extends Model
     {
         return $this->hasMany(Enrollment::class);
     }
-    
-    public function userEvaluations(){
+
+    public function userEvaluations()
+    {
         return $this->hasMany(UserEvaluation::class);
     }
 
-    public function lessons(){
+    public function lessons()
+    {
         return $this->hasMany(LessonUser::class);
     }
 }

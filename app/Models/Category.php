@@ -18,7 +18,6 @@ class Category extends Model
     ];
 
 
-    //relacion con curso
     public function courses()
     {
         return $this->hasMany(Course::class);
